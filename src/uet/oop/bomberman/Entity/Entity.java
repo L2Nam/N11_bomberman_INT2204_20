@@ -25,7 +25,7 @@ public abstract class Entity implements Collidable, Observable {
         this.rotation = 0;
     }
 
-    //đưa ảnh đến vị trí xác định
+    //khởi tạo đưa ảnh đến vị trí xác định
     Entity(Point2D.Float position, BufferedImage sprite) {
         this(sprite);
         this.position = new Point2D.Float(position.x, position.y);
