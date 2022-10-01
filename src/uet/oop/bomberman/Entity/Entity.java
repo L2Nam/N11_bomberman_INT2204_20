@@ -18,7 +18,6 @@ public abstract class Entity implements Collidable, Observable {
     private boolean destroyed; // ktra xem có bị phá hủy không
 
 
-
     //set vị trí
     Entity(Point2D.Float position) {
         this.position = new Point2D.Float(position.x, position.y);
@@ -53,6 +52,7 @@ public abstract class Entity implements Collidable, Observable {
 
     /**
      * Xử lí va chạm vật rắn như tường
+     *
      * @param obj vật rắn như tường
      */
     void solidCollision(Entity obj) {
@@ -104,6 +104,7 @@ public abstract class Entity implements Collidable, Observable {
 
     /**
      * Nhận lại vị trí của Collider
+     *
      * @return A Rectangle2D collider
      */
     public Rectangle2D.Float getCollider() {
