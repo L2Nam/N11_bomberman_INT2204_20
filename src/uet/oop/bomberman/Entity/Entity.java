@@ -1,139 +1,53 @@
 package uet.oop.bomberman.Entity;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 
-public abstract class Entity implements Collidable, Observable {
-    Point2D.Float position; // vị trí
-    BufferedImage sprite; // ảnh
-    Rectangle2D.Float collider; // va chạm
-    float rotation; // góc
-    float width; // chều rộng
-    float height; // chiều cao
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import uet.oop.bomberman.Features.Sprite;
 
-    // Thuộc tính bị phá hủy (Dùng để phá hủy hoạt ảnh)
-    private boolean destroyed; // ktra xem có bị phá hủy không
+public abstract class Entity {
+    protected int x;
+    protected int y;
+    protected Image img;
 
-
-
-    //set vị trí
-    Entity(Point2D.Float position) {
-        this.position = new Point2D.Float(position.x, position.y);
-        this.rotation = 0;
+    
+    public Entity(int x_unit, int y_unit, Image img) {
+        this.x = x_unit * Sprite.SCALED_SIZE;
+        this.y = y_unit * Sprite.SCALED_SIZE;
+        this.img = img;
     }
 
-    //đưa ảnh đến vị trí xác định
-    Entity(Point2D.Float position, BufferedImage sprite) {
-        this(sprite);
-        this.position = new Point2D.Float(position.x, position.y);
-        this.rotation = 0;
-        this.collider = new Rectangle2D.Float(position.x, position.y, this.width, this.height);
+    public Entity() {
+
     }
 
-
-    //khai báo hình ảnh thực thể
-    private Entity(BufferedImage sprite) {
-        this.sprite = sprite;
-        this.width = this.sprite.getWidth();
-        this.height = this.sprite.getHeight();
+    public int getX() {
+        return x;
     }
 
-    // phá hủy
-    void destroy() {
-        this.destroyed = true;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    //ktra có bị phá hủy không
-    public boolean isDestroyed() {
-        return destroyed;
+    public int getY() {
+        return y;
     }
 
-    /**
-     * Xử lí va chạm vật rắn như tường
-     * @param obj vật rắn như tường
-     */
-    void solidCollision(Entity obj) {
-        Rectangle2D intersection = this.collider.createIntersection(obj.collider);
-        // Vertical collision
-////        if (intersection.getWidth() >= intersection.getHeight()) {
-////            // From the top
-////            if (intersection.getMaxY() >= this.collider.getMaxY()) {
-////                this.position.setLocation(this.position.x, this.position.y - intersection.getHeight());
-////            }
-////            // From the bottom
-////            if (intersection.getMaxY() >= obj.collider.getMaxY()) {
-////                this.position.setLocation(this.position.x, this.position.y + intersection.getHeight());
-////            }
-////
-////            // Smoothing around corners
-////            if (intersection.getWidth() < 16) {
-////                if (intersection.getMaxX() >= this.collider.getMaxX()) {
-////                    this.position.setLocation(this.position.x - 0.5, this.position.y);
-////                }
-////                if (intersection.getMaxX() >= obj.collider.getMaxX()) {
-////                    this.position.setLocation(this.position.x + 0.5, this.position.y);
-////                }
-////            }
-////        }
-//
-//        // Va chạm ngang
-//        if (intersection.getHeight() >= intersection.getWidth()) {
-//            // From the left
-//            if (intersection.getMaxX() >= this.collider.getMaxX()) {
-//                this.position.setLocation(this.position.x - intersection.getWidth(), this.position.y);
-//            }
-//            // From the right
-//            if (intersection.getMaxX() >= obj.collider.getMaxX()) {
-//                this.position.setLocation(this.position.x + intersection.getWidth(), this.position.y);
-//            }
-//
-//            // Smoothing around corners
-//            if (intersection.getHeight() < 16) {
-//                if (intersection.getMaxY() >= this.collider.getMaxY()) {
-//                    this.position.setLocation(this.position.x, this.position.y - 0.5);
-//                }
-//                if (intersection.getMaxY() >= obj.collider.getMaxY()) {
-//                    this.position.setLocation(this.position.x, this.position.y + 0.5);
-//                }
-//            }
-//        }
+    public void setY(int y) {
+        this.y = y;
     }
 
-    /**
-     * Nhận lại vị trí của Collider
-     * @return A Rectangle2D collider
-     */
-    public Rectangle2D.Float getCollider() {
-        return this.collider;
+    public Image getImg() {
+        return img;
     }
 
-    /**
-     * Nhận trung tâm của object's collider
-     */
-    public Point2D.Float getColliderCenter() {
-        return new Point2D.Float((float) this.collider.getCenterX(), (float) this.collider.getCenterY());
+    public void setImg(Image img) {
+        this.img = img;
     }
 
-    public float getPositionY() {
-        return this.position.y + this.height;
+    public void render(GraphicsContext gc) {    // Using to render the frame of the game
+        gc.drawImage(img, x, y);
     }
 
-    /**
-     * Hàm vẽ một object.
-     */
-    public void drawImage(Graphics g) {
-        AffineTransform rotation = AffineTransform.getTranslateInstance(this.position.getX(), this.position.getY());
-        rotation.rotate(Math.toRadians(this.rotation), this.sprite.getWidth() / 2.0, this.sprite.getHeight() / 2.0);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(this.sprite, rotation, null);
-    }
-
-    @Override
-    // so sánh tọa độ y có giống nhau không
-    public int compareTo(Entity o) {
-        return Float.compare(this.position.y, o.position.y);
-    }
+    public abstract void update();
 }
