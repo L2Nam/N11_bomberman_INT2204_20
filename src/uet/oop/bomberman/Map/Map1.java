@@ -8,6 +8,7 @@ import uet.oop.bomberman.Graphics.MapCreation;
 import static uet.oop.bomberman.Main.GameRun.*;
 import static uet.oop.bomberman.Entity.Character.Player.swap_kill;
 import static uet.oop.bomberman.Entity.Entity_map.Bomb.*;
+import static uet.oop.bomberman.Control.Menu.*;
 
 public class Map1 {
     public Map1() {
@@ -20,16 +21,15 @@ public class Map1 {
 //        player.setLife(true);
 //        player.setX(32);
 //        player.setY(32);
-//        time_number = 120;
-//        bomb_number = 20;
+        time_number = 120;
+        bomb_number = 20;
         is_bomb = 0;
 
-        // load authorView Scr
 //        player.setImg(Sprite.control_right_2.getFxImage());
         Image transparent = new Image("images/transparent.png");
         view.setImage(transparent);
 
-        // set default for enemy
+        // set life cho monster
         for (Character character : monster) {
             character.setLife(true);
         }

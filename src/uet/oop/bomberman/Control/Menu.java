@@ -64,6 +64,7 @@ public class Menu {
 //            }
 //            //updateMenu();
             new Map1();
+            running = true;
         });
 
     }

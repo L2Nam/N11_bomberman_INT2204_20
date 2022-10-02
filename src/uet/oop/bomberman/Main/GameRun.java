@@ -49,9 +49,6 @@ public class GameRun extends Application {
     public static Stage mainStage = null;
     public static boolean isPause = false;
 
-//    Group root = new Group();
-//        Menu.createMenu(root);
-
     @Override
     public void start(Stage stage) {
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);

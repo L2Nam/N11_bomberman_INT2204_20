@@ -18,8 +18,10 @@ public class SpriteSheet {
             image = ImageIO.read(url);
             int width = image.getWidth();
             int height = image.getHeight();
+            System.out.println("ok");
             image.getRGB(0, 0, width, height, sprite_pixels, 0, width);
         } catch (IOException e) {           // Catch exception
+            System.out.println("error");
             e.printStackTrace();            // printStackTrace(): Help to understand where the problem is actually happening.
             System.exit(0);           // Exit the system
         }
