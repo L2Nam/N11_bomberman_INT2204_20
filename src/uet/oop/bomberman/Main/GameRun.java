@@ -8,11 +8,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import uet.oop.bomberman.Control.Menu;
+import uet.oop.bomberman.Entity.Character.Character;
 import uet.oop.bomberman.Entity.Entity;
 import uet.oop.bomberman.Features.Sprite;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static uet.oop.bomberman.Control.Menu.statusGame;
 
 public class GameRun extends Application {
     /**
@@ -26,9 +30,15 @@ public class GameRun extends Application {
     public static int height = 0;
     public static int level = 1;
 
+    public static Character player;
+
     public static final List<Entity> block = new ArrayList<>();     // Các thực thể cố định (map)
+    public static List<Character> monster = new ArrayList<>();           // Các thực thể quái vật
+    public static int[][] id_objects;
+    public static int[][] list_kill;
+
     public static boolean running;
-    public static ImageView author_view;
+    public static ImageView view;
 
     private GraphicsContext gc;
     private Canvas canvas;
@@ -39,20 +49,25 @@ public class GameRun extends Application {
     public static Stage mainStage = null;
     public static boolean isPause = false;
 
+//    Group root = new Group();
+//        Menu.createMenu(root);
+
     @Override
     public void start(Stage stage) {
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
         canvas.setTranslateY(32);
         gc = canvas.getGraphicsContext2D();
         Image author = new Image("images/author.png");
-        author_view = new ImageView(author);
-        author_view.setX(-400);
-        author_view.setY(-208);
-        author_view.setScaleX(0.5);
-        author_view.setScaleY(0.5);
+        view = new ImageView(author);
+        view.setX(-400);
+        view.setY(-208);
+        view.setScaleX(0.5);
+        view.setScaleY(0.5);
         Group root = new Group();
+        Menu.createMenu(root);
         root.getChildren().add(canvas);
-        root.getChildren().add(author_view);
+        root.getChildren().add(view);
+        root.getChildren().add(statusGame);
 
         Scene scene = new Scene(root);
 

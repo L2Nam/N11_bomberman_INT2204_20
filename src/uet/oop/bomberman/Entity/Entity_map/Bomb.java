@@ -18,7 +18,7 @@ public class Bomb extends Entity {
     private static List<Entity>list_bomb_width = new ArrayList<>();
     private static List<Entity>list_bomb_height = new ArrayList<>();
 
-    private static int power_bomb = 0; // sức nổ của bomb
+    public static int power_bomb = 0; // sức nổ của bomb
 
     /*sức công phá của bomb*/
     private static int power_bomb_up = 0;
