@@ -69,6 +69,8 @@ public class Menu {
 
     }
 
+    public static void updateMenu() {}
+
     /*public static void updateMenu() { //Update menu
         //level.setText("Level: " + RunBomberman.level);
         bomb.setText("Bombs: " + bomb_number);

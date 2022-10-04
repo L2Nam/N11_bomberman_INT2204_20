@@ -1,5 +1,6 @@
 package uet.oop.bomberman.Main;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static uet.oop.bomberman.Control.Menu.statusGame;
+import static uet.oop.bomberman.Control.Menu.updateMenu;
 
 public class GameRun extends Application {
     /**
@@ -76,6 +78,20 @@ public class GameRun extends Application {
         mainStage.show();
 
         last_time = System.currentTimeMillis();
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                if (running) {
+                    render();
+                    if(!isPause){
+                        update();
+                        time();
+                    }
+                    updateMenu();
+                }
+            }
+        };
+        timer.start();
     }
 
     public void update() {
