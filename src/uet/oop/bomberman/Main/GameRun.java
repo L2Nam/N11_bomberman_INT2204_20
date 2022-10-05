@@ -10,7 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import uet.oop.bomberman.Control.Menu;
+import uet.oop.bomberman.Control.Move;
 import uet.oop.bomberman.Entity.Character.Character;
+import uet.oop.bomberman.Entity.Character.Player;
 import uet.oop.bomberman.Entity.Entity;
 import uet.oop.bomberman.Features.Sprite;
 
@@ -70,7 +72,28 @@ public class GameRun extends Application {
 
         Scene scene = new Scene(root);
 
+
+        scene.setOnKeyPressed(event -> {
+            if (player.isLife()) {
+                switch (event.getCode()) {
+                    case UP:
+                        Move.up(player);
+                        break;
+                    case DOWN:
+                        Move.down(player);
+                        break;
+                    case RIGHT:
+                        Move.right(player);
+                        break;
+                    case LEFT:
+                        Move.left(player);
+                        break;
+                }
+            }
+        });
+
         stage.setScene(scene);
+
         stage.setTitle("Bomberman by N11_OPP");
         Image icon = new Image("images/ttsalpha4.0@0.5x.png");
         stage.getIcons().add(icon);
@@ -92,15 +115,25 @@ public class GameRun extends Application {
             }
         };
         timer.start();
+        player = new Player(1, 1, Sprite.control_right_2.getFxImage());
+        player.setLife(true);
     }
+
 
     public void update() {
         block.forEach(Entity::update);
+        player.update();
+        player.setCountToRun(player.getCountToRun() + 1);
+        if (player.getCountToRun() == 4) {
+            Move.checkRun(player);
+            player.setCountToRun(0);
+        }
     }
 
     public void render() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         block.forEach(g -> g.render(gc));
+        player.render(gc);
     }
 
     public void time() {

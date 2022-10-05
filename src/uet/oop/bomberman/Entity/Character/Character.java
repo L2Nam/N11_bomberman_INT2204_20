@@ -29,6 +29,10 @@ public abstract class Character extends Entity {
     public void setLife(boolean life) {
         this.life = life;
     }
+    public boolean isLife() {
+        return life;
+    }
+
 
     public int getIsMove() {
         return is_move;
