@@ -36,12 +36,12 @@ public class Menu {
         time.setX(608);
         time.setY(20);
 
-        Image newGame = new Image("images/startButton.png");
+        Image newGame = new Image("images/PlayButton.png");
         statusGame = new ImageView(newGame);
-        statusGame.setX(-25);
-        statusGame.setY(250);
-        statusGame.setScaleX(1);
-        statusGame.setScaleY(1);
+        statusGame.setX(300);
+        statusGame.setY(10);
+        statusGame.setScaleX(0.15);
+        statusGame.setScaleY(0.15);
 
         Pane pane = new Pane();
         pane.getChildren().addAll(level, bomb, time, statusGame);
@@ -62,28 +62,30 @@ public class Menu {
 //                new Level1();
 //                running = true;
 //            }
-//            //updateMenu();
+            updateMenu();
             new Map1();
             running = true;
         });
 
     }
 
-    public static void updateMenu() {}
+    public static void updateMenu() {
+        statusGame.setImage(null);
+    }
 
-    /*public static void updateMenu() { //Update menu
-        //level.setText("Level: " + RunBomberman.level);
-        bomb.setText("Bombs: " + bomb_number);
-
-        if (player.isLife())
-            if (isPause) {
-                statusGame.setImage(pauseGame);
-            } else {
-                statusGame.setImage(playGame);
-            }
-        else {
-            Image newGame = new Image("images/startButton.png");
-            statusGame.setImage(newGame);
-        }
-    }*/
+//    public static void updateMenu() {
+//        level.setText("Level: " + RunBomberman.level);
+//        bomb.setText("Bombs: " + bomb_number);
+//
+//        if (player.isLife())
+//            if (isPause) {
+//                statusGame.setImage(pauseGame);
+//            } else {
+//                statusGame.setImage(playGame);
+//            }
+//        else {
+//            Image newGame = new Image("images/startButton.png");
+//            statusGame.setImage(newGame);
+//        }
+//    }
 }

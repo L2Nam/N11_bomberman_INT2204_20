@@ -54,9 +54,15 @@ public class GameRun extends Application {
     @Override
     public void start(Stage stage) {
         canvas = new Canvas(Sprite.SCALED_SIZE * WIDTH, Sprite.SCALED_SIZE * HEIGHT);
-        canvas.setTranslateY(32);
+        stage.setTitle("Bomberman by N11_OPP");
+        Image icon = new Image("images/ttsalpha4.0@0.5x.png");
+        stage.getIcons().add(icon);
+        mainStage = stage;
+        mainStage.show();
+
+        canvas.setTranslateY(0);
         gc = canvas.getGraphicsContext2D();
-        Image author = new Image("images/author.png");
+        Image author = new Image("images/Background.png");
         view = new ImageView(author);
         view.setX(-400);
         view.setY(-208);
@@ -71,11 +77,6 @@ public class GameRun extends Application {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-        stage.setTitle("Bomberman by N11_OPP");
-        Image icon = new Image("images/ttsalpha4.0@0.5x.png");
-        stage.getIcons().add(icon);
-        mainStage = stage;
-        mainStage.show();
 
         last_time = System.currentTimeMillis();
         AnimationTimer timer = new AnimationTimer() {
