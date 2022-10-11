@@ -15,12 +15,12 @@ import uet.oop.bomberman.Entity.Character.Character;
 import uet.oop.bomberman.Entity.Character.Player;
 import uet.oop.bomberman.Entity.Entity;
 import uet.oop.bomberman.Features.Sprite;
+import uet.oop.bomberman.Entity.Bomb;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static uet.oop.bomberman.Control.Menu.statusGame;
-import static uet.oop.bomberman.Control.Menu.updateMenu;
+import static uet.oop.bomberman.Control.Menu.*;
 
 public class GameRun extends Application {
     /**
@@ -72,7 +72,6 @@ public class GameRun extends Application {
 
         Scene scene = new Scene(root);
 
-
         scene.setOnKeyPressed(event -> {
             if (player.isLife()) {
                 switch (event.getCode()) {
@@ -87,6 +86,9 @@ public class GameRun extends Application {
                         break;
                     case LEFT:
                         Move.left(player);
+                        break;
+                    case SPACE:
+                        Bomb.putBomb();
                         break;
                 }
             }
@@ -106,7 +108,7 @@ public class GameRun extends Application {
             public void handle(long l) {
                 if (running) {
                     render();
-                    if(!isPause){
+                    if (!isPause) {
                         update();
                         time();
                     }

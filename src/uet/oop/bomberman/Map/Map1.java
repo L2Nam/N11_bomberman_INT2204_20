@@ -7,7 +7,7 @@ import uet.oop.bomberman.Graphics.MapCreation;
 
 import static uet.oop.bomberman.Main.GameRun.*;
 import static uet.oop.bomberman.Entity.Character.Player.swap_kill;
-import static uet.oop.bomberman.Entity.Entity_map.Bomb.*;
+import static uet.oop.bomberman.Entity.Bomb.*;
 import static uet.oop.bomberman.Control.Menu.*;
 
 public class Map1 {
