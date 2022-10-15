@@ -36,11 +36,4 @@ public class Oneal extends Enemy {
 				break;
 		}
 	}
-//	@Override
-//	public boolean collide(Entity e) {
-//		if(e instanceof Enemy)
-//			return false;
-//		return false;
-//	}
-
 }
