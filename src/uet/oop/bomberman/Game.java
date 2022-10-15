@@ -40,6 +40,7 @@ public class Game extends Canvas {
 	protected int _screenDelay = SCREENDELAY;
 	
 	private Keyboard _input;
+	private Keyboard _input1;
 	private boolean _running = false;
 	private boolean _paused = true;
 	
@@ -57,9 +58,10 @@ public class Game extends Canvas {
 		
 		screen = new Screen(WIDTH, HEIGHT);
 		_input = new Keyboard();
-		
-		_map = new Map(this, _input, screen);
+		_input1 = new Keyboard();
+		_map = new Map(this, _input,_input1, screen);
 		addKeyListener(_input);
+		addKeyListener(_input1);
 	}
 	
 	
@@ -105,6 +107,7 @@ public class Game extends Canvas {
 
 	private void update() {
 		_input.update();
+		_input1.update1();
 		_map.update();
 	}
 	

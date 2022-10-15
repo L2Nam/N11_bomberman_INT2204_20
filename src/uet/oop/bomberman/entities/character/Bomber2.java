@@ -1,7 +1,7 @@
 package uet.oop.bomberman.entities.character;
 
-import uet.oop.bomberman.Map;
 import uet.oop.bomberman.Game;
+import uet.oop.bomberman.Map;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.LayeredEntity;
 import uet.oop.bomberman.entities.bomb.Bomb;
@@ -16,9 +16,7 @@ import uet.oop.bomberman.level.Coordinates;
 import java.util.Iterator;
 import java.util.List;
 
-
-public class Bomber extends Character {
-
+public class Bomber2 extends Character{
     private List<Bomb> _bombs;
     protected Keyboard _input;
 
@@ -32,10 +30,10 @@ public class Bomber extends Character {
     protected double _steps = 2*MAX_STEPS;
     protected int _timeBetweenPutBombs = 0;
 
-    public Bomber(int x, int y, Map map) {
+    public Bomber2(int x, int y, Map map) {
         super(x, y, map);
         _bombs = _map.getBombs();
-        _input = _map.getInput();
+        _input = _map.get_input1();
         _sprite = Sprite.player_right;
     }
 
@@ -54,12 +52,13 @@ public class Bomber extends Character {
 
         calculateMove();
         detectPlaceBomb();
-
+//        AIcalculateMove();
+//        AIdetectPlaceBomb();
     }
 
     @Override
     public void render(Screen screen) {
-        calculateXOffset();
+        calculateXOffset2();
 
         if (_alive)
             chooseSprite();
@@ -69,8 +68,8 @@ public class Bomber extends Character {
         screen.renderEntity((int) _x, (int) _y - _sprite.SIZE, this);
     }
 
-    public void calculateXOffset() {
-        int xScroll = Screen.calculateXOffset(_map, this);
+    public void calculateXOffset2() {
+        int xScroll = Screen.calculateXOffset2(_map, this);
         Screen.setOffset(xScroll, 0);
     }
     void AIdetectPlaceBomb() {
@@ -149,7 +148,7 @@ public class Bomber extends Character {
      */
     private void detectPlaceBomb() {
         // TODO: kiểm tra xem phím điều khiển đặt bom có được gõ và giá trị _timeBetweenPutBombs, Game.getBombRate() có thỏa mãn hay không
-        if(_input.space && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
+        if(_input.enter && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
             int x = Coordinates.pixelToTile(_x + _sprite.getSize()/2);
             int y = Coordinates.pixelToTile(_y - _sprite.getSize()/2 );
 
@@ -223,10 +222,10 @@ public class Bomber extends Character {
     protected void calculateMove() {
         // TODO: xử lý nhận tín hiệu điều khiển hướng đi từ _input và gọi move() để thực hiện di chuyển
         double xa = 0 , ya = 0 ;
-        if(_input.up) ya--;
-        if(_input.down) ya++;
-        if(_input.left) xa--;
-        if(_input.right) xa++;
+        if(_input.up1) ya--;
+        if(_input.down1) ya++;
+        if(_input.left1) xa--;
+        if(_input.right1) xa++;
 
         // TODO: nhớ cập nhật lại giá trị cờ _moving khi thay đổi trạng thái di chuyển
         if(xa != 0 || ya != 0)  {

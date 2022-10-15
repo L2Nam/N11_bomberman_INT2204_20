@@ -4,6 +4,7 @@ import uet.oop.bomberman.Map;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Bomber2;
 
 import java.awt.*;
 
@@ -82,6 +83,22 @@ public class Screen {
 			temp = (int)bomber.getX()  - (Game.WIDTH / 2);
 		}
 		
+		return temp;
+	}
+
+	public static int calculateXOffset2(Map map, Bomber2 bomber) {
+		if(bomber == null) return 0;
+		int temp = xOffset;
+
+		double BomberX = bomber.getX() / 16;
+		double complement = 0.5;
+		int firstBreakpoint = map.getWidth() / 4;
+		int lastBreakpoint = map.getWidth() - firstBreakpoint;
+
+		if( BomberX > firstBreakpoint + complement && BomberX < lastBreakpoint - complement) {
+			temp = (int)bomber.getX()  - (Game.WIDTH / 2);
+		}
+
 		return temp;
 	}
 	
