@@ -25,6 +25,7 @@ public class Map implements IRender {
 	protected LevelLoader levelLoader;
 	protected Game _game;
 	protected Keyboard _input;
+	protected Keyboard _input1;
 	protected Screen _screen;
 	
 	public Entity[] _entities;
@@ -36,10 +37,11 @@ public class Map implements IRender {
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
 	
-	public Map(Game game, Keyboard input, Screen screen) {
+	public Map(Game game, Keyboard input, Keyboard _input1, Screen screen) {
 		_game = game;
 		_input = input;
 		_screen = screen;
+		this._input1 = _input1;
 		
 		loadLevel(1); //start in level
 	}
@@ -282,6 +284,10 @@ public class Map implements IRender {
 
 	public Keyboard getInput() {
 		return _input;
+	}
+
+	public Keyboard get_input1() {
+		return _input1;
 	}
 
 	public LevelLoader getLevel() {

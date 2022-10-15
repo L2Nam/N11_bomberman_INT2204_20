@@ -10,13 +10,22 @@ public class Keyboard implements KeyListener {
 	
 	private boolean[] keys = new boolean[120]; //120 is enough to this game
 	public boolean up, down, left, right, space;
+	public boolean up1, down1, left1, right1, enter;
 	
 	public void update() {
-		up = keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_W];
-		down = keys[KeyEvent.VK_DOWN] || keys[KeyEvent.VK_S];
-		left = keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A];
-		right = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
-		space = keys[KeyEvent.VK_SPACE] || keys[KeyEvent.VK_X];
+		up = keys[KeyEvent.VK_W];
+		down = keys[KeyEvent.VK_S];
+		left = keys[KeyEvent.VK_A];
+		right = keys[KeyEvent.VK_D];
+		space = keys[KeyEvent.VK_SPACE];
+	}
+
+	public void update1() {
+		up1 = keys[KeyEvent.VK_UP];
+		down1 = keys[KeyEvent.VK_DOWN];
+		left1 = keys[KeyEvent.VK_LEFT];
+		right1 = keys[KeyEvent.VK_RIGHT];
+		enter = keys[KeyEvent.VK_ENTER];
 	}
 
 	@Override
