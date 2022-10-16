@@ -17,9 +17,9 @@ public class Sprite {
 	| Map sprites
 	|--------------------------------------------------------------------------
 	 */
-	public static Sprite grass = new Sprite(16, 6, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite brick = new Sprite(16, 7, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite wall = new Sprite(16, 5, 0, SpriteSheet.tiles, 16, 16);
+	public static Sprite grass = new Sprite(16, 0, 0, new SpriteSheet("/sprites/grass.png", 16), 16, 16);
+	public static Sprite brick = new Sprite(16, 0, 0, new SpriteSheet("/sprites/brick.png", 16), 16, 16);
+	public static Sprite wall = new Sprite(16, 0, 0, new SpriteSheet("/sprites/wall.png", 16), 16, 16);
 	public static Sprite portal = new Sprite(16, 4, 0, SpriteSheet.tiles, 14, 14);
 	
 	/*
