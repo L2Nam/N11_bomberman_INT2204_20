@@ -191,9 +191,9 @@ public class Sprite {
 	| Powerups
 	|--------------------------------------------------------------------------
 	 */
-	public static Sprite powerup_bombs = new Sprite(16, 0, 10, SpriteSheet.tiles, 16, 16);
-	public static Sprite powerup_flames = new Sprite(16, 1, 10, SpriteSheet.tiles, 16, 16);
-	public static Sprite powerup_speed = new Sprite(16, 2, 10, SpriteSheet.tiles, 16, 16);
+	public static Sprite powerup_bombs = new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_bombs.png", 16), 16, 16);
+	public static Sprite powerup_flames = new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_flames.png", 16), 16, 16);
+	public static Sprite powerup_speed = new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_speed.png", 16), 16, 16);
 	public static Sprite powerup_wallpass = new Sprite(16, 3, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_detonator = new Sprite(16, 4, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_bombpass = new Sprite(16, 5, 10, SpriteSheet.tiles, 16, 16);

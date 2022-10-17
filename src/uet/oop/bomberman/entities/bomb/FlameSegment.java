@@ -7,7 +7,6 @@ import uet.oop.bomberman.graphics.Sprite;
 
 
 public class FlameSegment extends Entity {
-
 	protected boolean _last;
 
 	/**

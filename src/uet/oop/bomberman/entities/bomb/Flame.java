@@ -6,13 +6,11 @@ import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.graphics.Screen;
 
 public class Flame extends Entity {
-
 	protected Map _map;
 	protected int _direction;
 	private int _radius;
 	protected int xOrigin, yOrigin;
 	protected FlameSegment[] _flameSegments = new FlameSegment[0];
-
 	/**
 	 *
 	 * @param x hoành độ bắt đầu của Flame
