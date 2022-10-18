@@ -14,196 +14,196 @@ import java.awt.image.DataBufferInt;
  */
 public class Game extends Canvas {
 
-	public static final int TILES_SIZE = 16,
-			WIDTH = TILES_SIZE * (31 / 2),
-			HEIGHT = 13 * TILES_SIZE;
+    public static final int TILES_SIZE = 16,
+            WIDTH = TILES_SIZE * (31 / 2),
+            HEIGHT = 13 * TILES_SIZE;
 
-	public static int SCALE = 3;
+    public static int SCALE = 3;
 
-	public static final String TITLE = "BombermanGame by N11_OOP";
+    public static final String TITLE = "BombermanGame by N11_OOP";
 
-	private static final int BOMBRATE = 1;
-	private static final int BOMBRADIUS = 1;
-	private static final double BOMBERSPEED = 1.0;
+    private static final int BOMBRATE = 1;
+    private static final int BOMBRADIUS = 1;
+    private static final double BOMBERSPEED = 1.0;
 
-	public static final int TIME = 200;
-	public static final int POINTS = 0;
+    public static final int TIME = 200;
+    public static final int POINTS = 0;
 
-	protected static int SCREENDELAY = 3;
+    protected static int SCREENDELAY = 3;
 
-	protected static int bombRate = BOMBRATE;
-	protected static int bombRate2 = BOMBRATE;
-	protected static int bombRadius = BOMBRADIUS;
-	protected static double bomberSpeed = BOMBERSPEED;
-
-
-	protected int _screenDelay = SCREENDELAY;
-
-	private Keyboard _input;
-	private Keyboard _input1;
-	private boolean _running = false;
-	private boolean _paused = true;
-
-	private static Map _map;
-
-	private Screen screen;
-	private Frame _frame;
-
-	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-
-	public Game(Frame frame) {
-		_frame = frame;
-		_frame.setTitle(TITLE);
-
-		screen = new Screen(WIDTH, HEIGHT);
-		_input = new Keyboard();
-		_input1 = new Keyboard();
-		_map = new Map(this, _input,_input1, screen);
-		addKeyListener(_input);
-		addKeyListener(_input1);
-	}
+    protected static int bombRate = BOMBRATE;
+    protected static int bombRate2 = BOMBRATE;
+    protected static int bombRadius = BOMBRADIUS;
+    protected static double bomberSpeed = BOMBERSPEED;
 
 
-	private void renderGame() {
-		BufferStrategy bs = getBufferStrategy();
-		if(bs == null) {
-			createBufferStrategy(3);
-			return;
-		}
+    protected int _screenDelay = SCREENDELAY;
 
-		screen.clear();
+    private Keyboard _input;
+    private Keyboard _input1;
+    private boolean _running = false;
+    private boolean _paused = true;
 
-		_map.render(screen);
+    private static Map _map;
 
-		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = screen._pixels[i];
-		}
+    private Screen screen;
+    private Frame _frame;
 
-		Graphics g = bs.getDrawGraphics();
+    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+    public Game(Frame frame) {
+        _frame = frame;
+        _frame.setTitle(TITLE);
 
-		g.dispose();
-		bs.show();
-	}
+        screen = new Screen(WIDTH, HEIGHT);
+        _input = new Keyboard();
+        _input1 = new Keyboard();
+        _map = new Map(this, _input, _input1, screen);
+        addKeyListener(_input);
+        addKeyListener(_input1);
+    }
 
-	private void renderScreen() {
-		BufferStrategy bs = getBufferStrategy();
-		if(bs == null) {
-			createBufferStrategy(3);
-			return;
-		}
 
-		screen.clear();
+    private void renderGame() {
+        BufferStrategy bs = getBufferStrategy();
+        if (bs == null) {
+            createBufferStrategy(3);
+            return;
+        }
 
-		Graphics g = bs.getDrawGraphics();
+        screen.clear();
 
-		_map.drawScreen(g);
+        _map.render(screen);
 
-		g.dispose();
-		bs.show();
-	}
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = screen._pixels[i];
+        }
 
-	private void update() {
-		_input.update();
-		_input1.update1();
-		_map.update();
-	}
+        Graphics g = bs.getDrawGraphics();
 
-	public void start() {
-		_running = true;
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
-		long  lastTime = System.nanoTime();
-		long timer = System.currentTimeMillis();
-		final double ns = 1000000000.0 / 60.0; //nanosecond, 60 frames per second
-		double delta = 0;
-		int frames = 0;
-		int updates = 0;
-		requestFocus();
-		while(_running) {
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
-			while(delta >= 1) {
-				update();
-				updates++;
-				delta--;
-			}
-			renderGame();
-			if(_paused) {
-				if(_screenDelay <= 0) {
-					_map.setShow(-1);
-					_paused = false;
-				}
-				renderScreen();
-			} else {
-				renderGame();
-			}
-			frames++;
-			if(System.currentTimeMillis() - timer > 1000) {
+        g.dispose();
+        bs.show();
+    }
+
+    private void renderScreen() {
+        BufferStrategy bs = getBufferStrategy();
+        if (bs == null) {
+            createBufferStrategy(3);
+            return;
+        }
+
+        screen.clear();
+
+        Graphics g = bs.getDrawGraphics();
+
+        _map.drawScreen(g);
+
+        g.dispose();
+        bs.show();
+    }
+
+    private void update() {
+        _input.update();
+        _input1.update1();
+        _map.update();
+    }
+
+    public void start() {
+        _running = true;
+
+        long lastTime = System.nanoTime();
+        long timer = System.currentTimeMillis();
+        final double ns = 1000000000.0 / 60.0; //nanosecond, 60 frames per second
+        double delta = 0;
+        int frames = 0;
+        int updates = 0;
+        requestFocus();
+        while (_running) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
+            while (delta >= 1) {
+                update();
+                updates++;
+                delta--;
+            }
+            renderGame();
+            if (_paused) {
+                if (_screenDelay <= 0) {
+                    _map.setShow(-1);
+                    _paused = false;
+                }
+                renderScreen();
+            } else {
+                renderGame();
+            }
+            frames++;
+            if (System.currentTimeMillis() - timer > 1000) {
 //				_frame.setTime(_map.subtractTime());
 //				_frame.setPoints(_map.getPoints());
-				timer += 1000;
-				_frame.setTitle(TITLE + " | " + updates + " rate, " + frames + " fps");
-				updates = 0;
-				frames = 0;
+                timer += 1000;
+                _frame.setTitle(TITLE + " | " + updates + " rate, " + frames + " fps");
+                updates = 0;
+                frames = 0;
 
-				if(_map.getShow() == 2)
-					--_screenDelay;
-			}
-		}
-	}
+                if (_map.getShow() == 2)
+                    --_screenDelay;
+            }
+        }
+    }
 
-	public static double getBomberSpeed() {
-		return bomberSpeed;
-	}
+    public static double getBomberSpeed() {
+        return bomberSpeed;
+    }
 
-	public static int getBombRate() {
-		return bombRate;
-	}
+    public static int getBombRate() {
+        return bombRate;
+    }
 
-	public static int getBombRate2() {
-		return bombRate2;
-	}
+    public static int getBombRate2() {
+        return bombRate2;
+    }
 
-	public static int getBombRadius() {
-		return bombRadius;
-	}
+    public static int getBombRadius() {
+        return bombRadius;
+    }
 
-	public static void addBomberSpeed(double i) {
-		bomberSpeed += i;
-	}
+    public static void addBomberSpeed(double i) {
+        bomberSpeed += i;
+    }
 
-	public static void addBombRadius(int i) {
-		bombRadius += i;
-	}
+    public static void addBombRadius(int i) {
+        bombRadius += i;
+    }
 
-	public static void addBombRate(int i) {
-		bombRate += i;
-	}
+    public static void addBombRate(int i) {
+        bombRate += i;
+    }
 
-	public static void addBombRate2(int i) {
-		bombRate2 += i;
-	}
+    public static void addBombRate2(int i) {
+        bombRate2 += i;
+    }
 
-	public void resetScreenDelay() {
-		_screenDelay = SCREENDELAY;
-	}
+    public void resetScreenDelay() {
+        _screenDelay = SCREENDELAY;
+    }
 
-	public static Map getBoard() {
-		return _map;
-	}
+    public static Map getBoard() {
+        return _map;
+    }
 
-	public boolean isPaused() {
-		return _paused;
-	}
+    public boolean isPaused() {
+        return _paused;
+    }
 
-	public void pause() {
-		_paused = true;
-	}
+    public void pause() {
+        _paused = true;
+    }
 
-	public void setRunning(boolean _running) {
-		this._running = _running;
-	}
+    public void setRunning(boolean _running) {
+        this._running = _running;
+    }
 }

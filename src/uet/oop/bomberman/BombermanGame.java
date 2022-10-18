@@ -39,7 +39,7 @@ public class BombermanGame {
         int i = 0;
 
         while (!check2) {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(3);
             System.out.println("bam start nhanh con me may len");
             i++;
             if (i == 9) {
