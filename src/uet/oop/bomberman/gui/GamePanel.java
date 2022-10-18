@@ -11,7 +11,7 @@ import java.awt.*;
 public class GamePanel extends JPanel {
 
 	private Game _game;
-	
+
 	public GamePanel(Frame frame) {
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
@@ -24,11 +24,11 @@ public class GamePanel extends JPanel {
 
 		setVisible(true);
 		setFocusable(true);
-		
+
 	}
 
 	public Game getGame() {
 		return _game;
 	}
-	
+
 }
