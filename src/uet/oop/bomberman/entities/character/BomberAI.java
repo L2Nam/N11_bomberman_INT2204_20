@@ -55,7 +55,7 @@ public class BomberAI {
                 }
             }
         }
-        if( Game.getBombRate() >0 ){
+        if( Game.getBombRate() >0 && Game.getBombRate2() >0 ){
             return random.nextInt(4);
         }
 

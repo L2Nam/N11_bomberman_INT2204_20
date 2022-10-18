@@ -7,21 +7,23 @@ import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class BombItem extends Item {
-	public BombItem(int x, int y, Sprite sprite) {
-		super(x, y, sprite);
-	}
+    public BombItem(int x, int y, Sprite sprite) {
+        super(x, y, sprite);
+    }
 
-	@Override
-	public boolean collide(Entity e) {
-		// TODO: xử lý Bomber ăn Item
-		if( e instanceof Bomber || e instanceof Bomber2){
-			if(this.isRemoved()) return true; // không bị x2 Power Up
-			remove();
-			Game.addBombRate(1);
-		}
-		return false;
-	}
-	
+    @Override
+    public boolean collide(Entity e) {
+        // TODO: xử lý Bomber ăn Item
+        if (e instanceof Bomber || e instanceof Bomber2) {
+            if (this.isRemoved()) return true; // không bị x2 Power Up
+            remove();
+            if (e instanceof Bomber)
+                Game.addBombRate(1);
+            else
+                Game.addBombRate2(1);
+        }
+        return false;
+    }
 
 
 }

@@ -75,7 +75,7 @@ public class Bomber2 extends Character{
     void AIdetectPlaceBomb() {
         int x = Coordinates.pixelToTile(_x + _sprite.getSize()/2);
         int y = Coordinates.pixelToTile(_y - _sprite.getSize()/2 );
-        if(!Game.getBoard().detectNoEnemies() && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
+        if(!Game.getBoard().detectNoEnemies() && Game.getBombRate2()>0 && _timeBetweenPutBombs < 0){
             for(int i = 1 ; i < 2 + Game.getBombRadius() ; i++){
                 Character character = _map.getCharacterAtExcluding(this.getXTile()+i, this.getYTile(),this);
                 Entity a = _map.getEntityAt(this.getXTile()+1,this.getYTile());
@@ -148,7 +148,7 @@ public class Bomber2 extends Character{
      */
     private void detectPlaceBomb() {
         // TODO: kiểm tra xem phím điều khiển đặt bom có được gõ và giá trị _timeBetweenPutBombs, Game.getBombRate() có thỏa mãn hay không
-        if(_input.enter && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
+        if(_input.enter && Game.getBombRate2()>0 && _timeBetweenPutBombs < 0){
             int x = Coordinates.pixelToTile(_x + _sprite.getSize()/2);
             int y = Coordinates.pixelToTile(_y - _sprite.getSize()/2 );
 
