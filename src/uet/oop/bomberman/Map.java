@@ -240,7 +240,7 @@ public class Map implements IRender {
 
 	protected void renderCharacter(Screen screen) {
 		Iterator<Character> itr = _characters.iterator();
-		
+
 		while(itr.hasNext())
 			itr.next().render(screen);
 	}

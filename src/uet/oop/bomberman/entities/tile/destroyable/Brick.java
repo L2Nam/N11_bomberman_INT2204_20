@@ -29,14 +29,4 @@ public class Brick extends DestroyableTile {
 		else
 			screen.renderEntity( x, y, this);
 	}
-
-//	@Override
-//	public boolean collide(Entity e) {
-//		if (e instanceof Kondoria)
-//			return true;
-//		if (e instanceof Flame)
-//			destroy();
-//
-//		return false;
-//	}
 }

@@ -202,8 +202,4 @@ public class Game extends Canvas {
     public void pause() {
         _paused = true;
     }
-
-    public void setRunning(boolean _running) {
-        this._running = _running;
-    }
 }
