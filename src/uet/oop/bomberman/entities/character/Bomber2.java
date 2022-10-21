@@ -25,7 +25,7 @@ public class Bomber2 extends Character{
      * cứ mỗi lần đặt 1 Bomb mới, giá trị này sẽ được reset về 0 và giảm dần trong mỗi lần update()
      */
 
-    protected final double MAX_STEPS = Game.TILES_SIZE / Game.getBomberSpeed();
+    protected final double MAX_STEPS = Game.TILES_SIZE / Game.getBomberSpeed2();
     protected final double rest = (MAX_STEPS - (int) MAX_STEPS) / MAX_STEPS;
     protected double _steps = 2*MAX_STEPS;
     protected int _timeBetweenPutBombs = 0;
@@ -81,13 +81,13 @@ public class Bomber2 extends Character{
                 Entity a = _map.getEntityAt(this.getXTile()+1,this.getYTile());
                 if(character!=null) {
                     placeBomb(x, y);
-                    Game.addBombRate(-1);
+                    Game.addBombRate2(-1);
                     _timeBetweenPutBombs = 10;
                 }
                 else if(a instanceof LayeredEntity){
                     if(((LayeredEntity) a).getTopEntity() instanceof Brick){
                         placeBomb(x, y);
-                        Game.addBombRate(-1);
+                        Game.addBombRate2(-1);
                         _timeBetweenPutBombs = 10;
                     }
                 }
@@ -97,13 +97,13 @@ public class Bomber2 extends Character{
                 Entity a = _map.getEntityAt(this.getXTile()-1,this.getYTile());
                 if(character!=null) {
                     placeBomb(x, y);
-                    Game.addBombRate(-1);
+                    Game.addBombRate2(-1);
                     _timeBetweenPutBombs = 10;
                 }
                 else if(a instanceof LayeredEntity){
                     if(((LayeredEntity) a).getTopEntity() instanceof Brick){
                         placeBomb(x, y);
-                        Game.addBombRate(-1);
+                        Game.addBombRate2(-1);
                         _timeBetweenPutBombs = 10;
                     }
                 }
@@ -113,13 +113,13 @@ public class Bomber2 extends Character{
                 Entity a = _map.getEntityAt(this.getXTile(),this.getYTile()+1);
                 if(character!=null) {
                     placeBomb(x, y);
-                    Game.addBombRate(-1);
+                    Game.addBombRate2(-1);
                     _timeBetweenPutBombs = 10;
                 }
                 else if(a instanceof LayeredEntity){
                     if(((LayeredEntity) a).getTopEntity() instanceof Brick){
                         placeBomb(x, y);
-                        Game.addBombRate(-1);
+                        Game.addBombRate2(-1);
                         _timeBetweenPutBombs = 10;
                     }
                 }
@@ -129,13 +129,13 @@ public class Bomber2 extends Character{
                 Entity a = _map.getEntityAt(this.getXTile(),this.getYTile()-1);
                 if(character!=null) {
                     placeBomb(x, y);
-                    Game.addBombRate(-1);
+                    Game.addBombRate2(-1);
                     _timeBetweenPutBombs = 10;
                 }
                 else if(a instanceof LayeredEntity){
                     if(((LayeredEntity) a).getTopEntity() instanceof Brick){
                         placeBomb(x, y);
-                        Game.addBombRate(-1);
+                        Game.addBombRate2(-1);
                         _timeBetweenPutBombs = 10;
                     }
                 }
@@ -147,16 +147,16 @@ public class Bomber2 extends Character{
      * Kiểm tra xem có đặt được bom hay không? nếu có thì đặt bom tại vị trí hiện tại của Bomber
      */
     private void detectPlaceBomb() {
-        // TODO: kiểm tra xem phím điều khiển đặt bom có được gõ và giá trị _timeBetweenPutBombs, Game.getBombRate() có thỏa mãn hay không
+        // TODO: kiểm tra xem phím điều khiển đặt bom có được gõ và giá trị _timeBetweenPutBombs, Game.getBombRate2() có thỏa mãn hay không
         if(_input.enter && Game.getBombRate2()>0 && _timeBetweenPutBombs < 0){
             int x = Coordinates.pixelToTile(_x + _sprite.getSize()/2);
             int y = Coordinates.pixelToTile(_y - _sprite.getSize()/2 );
 
             placeBomb(x,y);
-            Game.addBombRate(-1);
+            Game.addBombRate2(-1);
             _timeBetweenPutBombs = 30;
         }
-        // TODO:  Game.getBombRate() sẽ trả về số lượng bom có thể đặt liên tiếp tại thời điểm hiện tại
+        // TODO:  Game.getBombRate2() sẽ trả về số lượng bom có thể đặt liên tiếp tại thời điểm hiện tại
         // TODO: _timeBetweenPutBombs dùng để ngăn chặn Bomber đặt 2 Bomb cùng tại 1 vị trí trong 1 khoảng thời gian quá ngắn
         // TODO: nếu 3 điều kiện trên thỏa mãn thì thực hiện đặt bom bằng placeBomb()
         // TODO: sau khi đặt, nhớ giảm số lượng Bomb Rate và reset _timeBetweenPutBombs về 0
@@ -177,7 +177,7 @@ public class Bomber2 extends Character{
             b = bs.next();
             if (b.isRemoved()) {
                 bs.remove();
-                Game.addBombRate(1);
+                Game.addBombRate2(1);
             }
         }
 
@@ -211,7 +211,7 @@ public class Bomber2 extends Character{
         // TODO: sử dụng move() để di chuyển
         if(canMove(xa, ya)) {
             _steps -= 1 + rest;
-            move(xa * Game.getBomberSpeed(), ya * Game.getBomberSpeed());
+            move(xa * Game.getBomberSpeed2(), ya * Game.getBomberSpeed2());
             _moving = true;
         } else {
             _steps = 0;
@@ -229,7 +229,7 @@ public class Bomber2 extends Character{
 
         // TODO: nhớ cập nhật lại giá trị cờ _moving khi thay đổi trạng thái di chuyển
         if(xa != 0 || ya != 0)  {
-            move(xa * Game.getBomberSpeed(), ya * Game.getBomberSpeed());
+            move(xa * Game.getBomberSpeed2(), ya * Game.getBomberSpeed2());
             _moving = true;
         } else {
             _moving = false;

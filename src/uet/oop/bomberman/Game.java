@@ -35,6 +35,7 @@ public class Game extends Canvas {
     protected static int bombRate2 = BOMBRATE;
     protected static int bombRadius = BOMBRADIUS;
     protected static double bomberSpeed = BOMBERSPEED;
+    protected static double bomberSpeed2 = BOMBERSPEED;
 
 
     protected int _screenDelay = SCREENDELAY;
@@ -159,6 +160,10 @@ public class Game extends Canvas {
         return bomberSpeed;
     }
 
+    public static double getBomberSpeed2() {
+        return bomberSpeed2;
+    }
+
     public static int getBombRate() {
         return bombRate;
     }
@@ -175,11 +180,15 @@ public class Game extends Canvas {
         bomberSpeed += i;
     }
 
+    public static void addBomberSpeed2(double i) {
+        bomberSpeed2 += i;
+    }
+
     public static void addBombRadius(int i) {
         bombRadius += i;
     }
 
-    public static void addBombRate(int i) {
+    public static void  addBombRate(int i) {
         bombRate += i;
     }
 
@@ -201,5 +210,9 @@ public class Game extends Canvas {
 
     public void pause() {
         _paused = true;
+    }
+
+    public void setRunning(boolean _running) {
+        this._running = _running;
     }
 }

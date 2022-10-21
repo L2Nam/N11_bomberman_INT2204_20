@@ -17,7 +17,12 @@ public class SpeedItem extends Item {
 		if(e instanceof Bomber || e instanceof Bomber2){
 			if(this.isRemoved()) return true;
 			remove();
-			Game.addBomberSpeed(0.3);
+			if (e instanceof Bomber ) {
+				Game.addBomberSpeed(0.3);
+			}
+			if (e instanceof Bomber2) {
+				Game.addBomberSpeed2(0.3);
+			}
 		}
 		return false;
 	}
