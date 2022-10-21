@@ -66,11 +66,13 @@ public class Map implements IRender {
 		if( _game.isPaused() ) return;
 		
 		//only render the visible part of screen
-		int x0 = Screen.xOffset >> 4; //tile precision, -> left X
-		int x1 = (Screen.xOffset + screen.getWidth() + Game.TILES_SIZE) / Game.TILES_SIZE; // -> right X
-		int y0 = Screen.yOffset >> 4;
-		int y1 = (Screen.yOffset + screen.getHeight()) / Game.TILES_SIZE; //render one tile plus to fix black margins
-		
+//		int x0 = Screen.xOffset >> 4; //tile precision, -> left X
+//		int x1 = (Screen.xOffset + screen.getWidth() + Game.TILES_SIZE) / Game.TILES_SIZE; // -> right X
+//		int y0 = Screen.yOffset >> 4;
+//		int y1 = (Screen.yOffset + screen.getHeight()) / Game.TILES_SIZE; //render one tile plus to fix black margins
+
+		int x0 = 0,x1 = 31, y0 = 0, y1 = 13;
+
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1; x++) {
 				_entities[x + y * levelLoader.getWidth()].render(screen);

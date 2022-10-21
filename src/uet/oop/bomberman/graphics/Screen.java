@@ -76,7 +76,7 @@ public class Screen {
 		
 		double BomberX = bomber.getX() / 16;
 		double complement = 0.5;
-		int firstBreakpoint = map.getWidth() / 4;
+		int firstBreakpoint = map.getWidth();
 		int lastBreakpoint = map.getWidth() - firstBreakpoint;
 		
 		if( BomberX > firstBreakpoint + complement && BomberX < lastBreakpoint - complement) {
@@ -92,7 +92,7 @@ public class Screen {
 
 		double BomberX = bomber.getX() / 16;
 		double complement = 0.5;
-		int firstBreakpoint = map.getWidth() / 4;
+		int firstBreakpoint = map.getWidth();
 		int lastBreakpoint = map.getWidth() - firstBreakpoint;
 
 		if( BomberX > firstBreakpoint + complement && BomberX < lastBreakpoint - complement) {
