@@ -23,6 +23,8 @@ import java.util.StringTokenizer;
 
 public class FileLevelLoader extends LevelLoader {
 
+	public static boolean is_multi = false;
+
 	/**
 	 * Ma trận chứa thông tin bản đồ, mỗi phần tử lưu giá trị kí tự đọc được
 	 * từ ma trận bản đồ trong tệp cấu hình
@@ -39,8 +41,15 @@ public class FileLevelLoader extends LevelLoader {
 
 		try {
 			URL absPath = FileLevelLoader.class.getResource("/levels/Level" + level  + ".txt");
+			URL absPath2 = FileLevelLoader.class.getResource("/levels2/Level" + level  + ".txt");
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(absPath.openStream()));
+			BufferedReader in;
+			if (!is_multi) {
+				in = new BufferedReader(new InputStreamReader(absPath.openStream()));
+			}
+			else {
+				in = new BufferedReader(new InputStreamReader(absPath2.openStream()));
+			}
 
             String data = in.readLine();
             StringTokenizer tokens = new StringTokenizer(data);
