@@ -34,6 +34,7 @@ public class Game extends Canvas {
     protected static int bombRate = BOMBRATE;
     protected static int bombRate2 = BOMBRATE;
     protected static int bombRadius = BOMBRADIUS;
+    protected static int bombRadius2 = BOMBRADIUS;
     protected static double bomberSpeed = BOMBERSPEED;
     protected static double bomberSpeed2 = BOMBERSPEED;
 
@@ -176,6 +177,10 @@ public class Game extends Canvas {
         return bombRadius;
     }
 
+    public static int getBombRadius2() {
+        return bombRadius2;
+    }
+
     public static void addBomberSpeed(double i) {
         bomberSpeed += i;
     }
@@ -186,6 +191,9 @@ public class Game extends Canvas {
 
     public static void addBombRadius(int i) {
         bombRadius += i;
+    }
+    public static void addBombRadius2(int i) {
+        bombRadius2 += i;
     }
 
     public static void  addBombRate(int i) {

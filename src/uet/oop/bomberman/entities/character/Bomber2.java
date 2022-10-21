@@ -4,7 +4,7 @@ import uet.oop.bomberman.Game;
 import uet.oop.bomberman.Map;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.LayeredEntity;
-import uet.oop.bomberman.entities.bomb.Bomb;
+import uet.oop.bomberman.entities.bomb.Bomb2;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Bomber2 extends Character{
-    private List<Bomb> _bombs;
+    private List<Bomb2> _bombs;
     protected Keyboard _input;
 
     /**
@@ -32,7 +32,7 @@ public class Bomber2 extends Character{
 
     public Bomber2(int x, int y, Map map) {
         super(x, y, map);
-        _bombs = _map.getBombs();
+        _bombs = _map.getBombs2();
         _input = _map.get_input1();
         _sprite = Sprite.player_right;
     }
@@ -164,15 +164,14 @@ public class Bomber2 extends Character{
 
     protected void placeBomb(int x, int y) {
         // TODO: thực hiện tạo đối tượng bom, đặt vào vị trí (x, y)
-        Bomb bomb = new Bomb(x,y, _map);
-        _map.addBomb(bomb);
-
+        Bomb2 bomb = new Bomb2(x,y, _map);
+        _map.addBomb2(bomb);
     }
 
     private void clearBombs() {
-        Iterator<Bomb> bs = _bombs.iterator();
+        Iterator<Bomb2> bs = _bombs.iterator();
 
-        Bomb b;
+        Bomb2 b;
         while (bs.hasNext()) {
             b = bs.next();
             if (b.isRemoved()) {
@@ -196,28 +195,28 @@ public class Bomber2 extends Character{
             _map.endGame();
         }
     }
-    void AIcalculateMove(){
-        double xa = 0, ya = 0;
-        if(_steps <= 0){
-            _direction = BomberAI.calculateDirection(_map.getBombs(), _map.getBomber());
-            _steps = 2*MAX_STEPS;
-        }
-        if(_direction == 0) ya--;
-        if(_direction == 2) ya++;
-        if(_direction == 3) xa--;
-        if(_direction == 1) xa++;
-        // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không
-
-        // TODO: sử dụng move() để di chuyển
-        if(canMove(xa, ya)) {
-            _steps -= 1 + rest;
-            move(xa * Game.getBomberSpeed2(), ya * Game.getBomberSpeed2());
-            _moving = true;
-        } else {
-            _steps = 0;
-            _moving = false;
-        }
-    }
+//    void AIcalculateMove(){
+//        double xa = 0, ya = 0;
+//        if(_steps <= 0){
+//            _direction = BomberAI.calculateDirection(_map.getBombs2(), _map.getBomber());
+//            _steps = 2*MAX_STEPS;
+//        }
+//        if(_direction == 0) ya--;
+//        if(_direction == 2) ya++;
+//        if(_direction == 3) xa--;
+//        if(_direction == 1) xa++;
+//        // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không
+//
+//        // TODO: sử dụng move() để di chuyển
+//        if(canMove(xa, ya)) {
+//            _steps -= 1 + rest;
+//            move(xa * Game.getBomberSpeed2(), ya * Game.getBomberSpeed2());
+//            _moving = true;
+//        } else {
+//            _steps = 0;
+//            _moving = false;
+//        }
+//    }
     @Override
     protected void calculateMove() {
         // TODO: xử lý nhận tín hiệu điều khiển hướng đi từ _input và gọi move() để thực hiện di chuyển

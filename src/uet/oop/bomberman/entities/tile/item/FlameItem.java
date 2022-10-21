@@ -17,7 +17,10 @@ public class FlameItem extends Item {
 		if(e instanceof Bomber || e instanceof Bomber2){
 			if(this.isRemoved()) return true;
 			remove();
-			Game.addBombRadius(1);
+			if (e instanceof Bomber)
+				Game.addBombRadius(1);
+			else
+				Game.addBombRadius2(1);
 		}
 		return false;
 	}

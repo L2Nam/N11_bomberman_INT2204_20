@@ -2,6 +2,7 @@ package uet.oop.bomberman;
 
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Bomb;
+import uet.oop.bomberman.entities.bomb.Bomb2;
 import uet.oop.bomberman.entities.bomb.FlameSegment;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.Character;
@@ -31,7 +32,8 @@ public class Map implements IRender {
 	public Entity[] _entities;
 	public List<Character> _characters = new ArrayList<>();
 	protected List<Bomb> _bombs = new ArrayList<>();
-	
+	protected List<Bomb2> _bombs2 = new ArrayList<>();
+
 	private int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
 	
 	private int _time = Game.TIME;
@@ -53,6 +55,7 @@ public class Map implements IRender {
 		updateEntities();
 		updateCharacters();
 		updateBombs();
+		updateBombs2();
 		detectEndGame();
 		
 		for (int i = 0; i < _characters.size(); i++) {
@@ -80,6 +83,7 @@ public class Map implements IRender {
 		}
 		
 		renderBombs(screen);
+		renderBombs2(screen);
 		renderCharacter(screen);
 		
 	}
@@ -95,6 +99,7 @@ public class Map implements IRender {
 		_game.pause();
 		_characters.clear();
 		_bombs.clear();
+		_bombs2.clear();
 		try {
 			levelLoader = new FileLevelLoader(this, level);
 
@@ -148,8 +153,14 @@ public class Map implements IRender {
 		
 		res = getFlameSegmentAt((int)x, (int)y);
 		if( res != null) return res;
+
+		res = getFlameSegmentAt2((int)x, (int)y);
+		if( res != null) return res;
 		
 		res = getBombAt(x, y);
+		if( res != null) return res;
+
+		res = getBombAt2(x, y);
 		if( res != null) return res;
 		
 		res = getCharacterAtExcluding((int)x, (int)y, m);
@@ -163,10 +174,26 @@ public class Map implements IRender {
 	public List<Bomb> getBombs() {
 		return _bombs;
 	}
+
+	public List<Bomb2> getBombs2() {
+		return _bombs2;
+	}
 	
 	public Bomb getBombAt(double x, double y) {
 		Iterator<Bomb> bs = _bombs.iterator();
 		Bomb b;
+		while(bs.hasNext()) {
+			b = bs.next();
+			if(b.getX() == (int)x && b.getY() == (int)y)
+				return b;
+		}
+		
+		return null;
+	}
+
+	public Bomb2 getBombAt2(double x, double y) {
+		Iterator<Bomb2> bs = _bombs2.iterator();
+		Bomb2 b;
 		while(bs.hasNext()) {
 			b = bs.next();
 			if(b.getX() == (int)x && b.getY() == (int)y)
@@ -223,6 +250,21 @@ public class Map implements IRender {
 		
 		return null;
 	}
+
+	public FlameSegment getFlameSegmentAt2(int x, int y) {
+		Iterator<Bomb2> bs = _bombs2.iterator();
+		Bomb2 b;
+		while(bs.hasNext()) {
+			b = bs.next();
+
+			FlameSegment e = b.flameAt(x, y);
+			if(e != null) {
+				return e;
+			}
+		}
+
+		return null;
+	}
 	
 	public Entity getEntityAt(double x, double y) {
 		return _entities[(int)x + (int)y * levelLoader.getWidth()];
@@ -240,6 +282,10 @@ public class Map implements IRender {
 		_bombs.add(e);
 	}
 
+	public void addBomb2(Bomb2 e) {
+		_bombs2.add(e);
+	}
+
 	protected void renderCharacter(Screen screen) {
 		Iterator<Character> itr = _characters.iterator();
 
@@ -249,6 +295,13 @@ public class Map implements IRender {
 	
 	protected void renderBombs(Screen screen) {
 		Iterator<Bomb> itr = _bombs.iterator();
+		
+		while(itr.hasNext())
+			itr.next().render(screen);
+	}
+
+	protected void renderBombs2(Screen screen) {
+		Iterator<Bomb2> itr = _bombs2.iterator();
 		
 		while(itr.hasNext())
 			itr.next().render(screen);
@@ -272,6 +325,14 @@ public class Map implements IRender {
 	protected void updateBombs() {
 		if( _game.isPaused() ) return;
 		Iterator<Bomb> itr = _bombs.iterator();
+		
+		while(itr.hasNext())
+			itr.next().update();
+	}
+
+	protected void updateBombs2() {
+		if( _game.isPaused() ) return;
+		Iterator<Bomb2> itr = _bombs2.iterator();
 		
 		while(itr.hasNext())
 			itr.next().update();
