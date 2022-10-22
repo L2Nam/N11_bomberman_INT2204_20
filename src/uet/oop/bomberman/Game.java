@@ -140,7 +140,6 @@ public class Game extends Canvas {
 
                 }
                 if (_sr) {
-                    System.out.println("RenderScreen11");
                     renderScreen();
                 }
                 if (Map._screenToShow == 1) {
