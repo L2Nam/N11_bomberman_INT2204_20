@@ -14,6 +14,10 @@ import uet.oop.bomberman.level.FileLevelLoader;
 import uet.oop.bomberman.level.LevelLoader;
 
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +38,7 @@ public class Map implements IRender {
 	protected List<Bomb> _bombs = new ArrayList<>();
 	protected List<Bomb2> _bombs2 = new ArrayList<>();
 
-	private int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
+	public static int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
 	
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
@@ -137,6 +141,33 @@ public class Map implements IRender {
 		switch (_screenToShow) {
 			case 1:
 				_screen.drawEndGame(g, _points);
+				BufferedWriter bw = null;
+				FileWriter fw = null;
+				try {
+					String data = String.valueOf(_points);
+					File file = new File("HightScore1.txt");
+					// if file doesnt exists, then create it
+					if (!file.exists()) {
+						file.createNewFile();
+					}
+					// true = append file
+					fw = new FileWriter(file.getAbsoluteFile(), true);
+					bw = new BufferedWriter(fw);
+					bw.write(data);
+					bw.write('\n');
+					System.out.println("Success...");
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (bw != null)
+							bw.close();
+						if (fw != null)
+							fw.close();
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
 				break;
 			case 2:
 				_screen.drawChangeLevel(g, levelLoader.getLevel());
