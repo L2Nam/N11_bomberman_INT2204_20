@@ -5,6 +5,10 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.graphics.Screen;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Flame extends Entity {
 	protected Map _map;
 	protected int _direction;
@@ -18,7 +22,7 @@ public class Flame extends Entity {
 	 * @param direction là hướng của Flame
 	 * @param radius độ dài cực đại của Flame
 	 */
-	public Flame(int x, int y, int direction, int radius, Map map) {
+	public Flame(int x, int y, int direction, int radius, Map map) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		xOrigin = x;
 		yOrigin = y;
 		_x = x;
@@ -32,7 +36,7 @@ public class Flame extends Entity {
 	/**
 	 * Tạo các FlameSegment, mỗi segment ứng một đơn vị độ dài
 	 */
-	private void createFlameSegments() {
+	private void createFlameSegments() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		/**
 		 * tính toán độ dài Flame, tương ứng với số lượng segment
 		 */
@@ -66,7 +70,7 @@ public class Flame extends Entity {
 	 * Tính toán độ dài của Flame, nếu gặp vật cản là Brick/Wall, độ dài sẽ bị cắt ngắn
 	 * @return
 	 */
-	private int calculatePermitedDistance() {
+	private int calculatePermitedDistance() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		// TODO: thực hiện tính toán độ dài của Flame
 		int radius = 0;
 		while (radius < _radius){

@@ -10,6 +10,13 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
+import static uet.oop.bomberman.Game.soundGame;
+import static uet.oop.bomberman.SoundGame.playSoundCheck;
+
 
 public class Bomb2 extends AnimatedEntitiy {
     protected double _timeToExplode = 120; //2 seconds
@@ -27,7 +34,7 @@ public class Bomb2 extends AnimatedEntitiy {
     }
 
     @Override
-    public void update() {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if(_timeToExplode > 0)
             _timeToExplode--;
         else {
@@ -76,7 +83,7 @@ public class Bomb2 extends AnimatedEntitiy {
     /**
      * Xử lý Bomb nổ
      */
-    protected void explode() {
+    protected void explode() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         _exploded = true;
         // TODO: xử lý khi Character đứng tại vị trí Bomb
         Character character = _map.getCharacterAtExcluding((int)_x,(int)_y,null);
@@ -89,6 +96,7 @@ public class Bomb2 extends AnimatedEntitiy {
         for(int i=0;i<_flames.length;i++) {
             _flames[i] = new Flame((int) _x, (int) _y, i, Game.getBombRadius2(), _map);
         }
+        soundGame.playSound("Explosion.wav", playSoundCheck);
     }
 
     public FlameSegment flameAt(int x, int y) {
