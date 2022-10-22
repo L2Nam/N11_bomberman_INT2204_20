@@ -38,7 +38,7 @@ public class Game extends Canvas {
     protected static double bomberSpeed = BOMBERSPEED;
     protected static double bomberSpeed2 = BOMBERSPEED;
 
-
+    private boolean _sr = true;
     protected int _screenDelay = SCREENDELAY;
 
     private Keyboard _input;
@@ -137,8 +137,15 @@ public class Game extends Canvas {
                 if (_screenDelay <= 0) {
                     _map.setShow(-1);
                     _paused = false;
+
                 }
-                renderScreen();
+                if (_sr) {
+                    System.out.println("RenderScreen11");
+                    renderScreen();
+                }
+                if (Map._screenToShow == 1) {
+                    _sr = false;
+                }
             } else {
                 renderGame();
             }
