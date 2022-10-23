@@ -5,6 +5,10 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 /**
  * Entity cố định, không di chuyển
  */
@@ -22,7 +26,7 @@ public abstract class Tile extends Entity {
 	 * @return
 	 */
 	@Override
-	public boolean collide(Entity e) {
+	public boolean collide(Entity e) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		return false;
 	}
 	

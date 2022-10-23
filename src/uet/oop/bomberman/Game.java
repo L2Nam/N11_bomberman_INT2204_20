@@ -3,10 +3,15 @@ package uet.oop.bomberman;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.input.Keyboard;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
+
+import static uet.oop.bomberman.SoundGame.playSoundCheck;
 
 /**
  * Tạo vòng lặp cho game, lưu trữ một vài tham số cấu hình toàn cục,
@@ -14,12 +19,14 @@ import java.awt.image.DataBufferInt;
  */
 public class Game extends Canvas {
 
+
     public static final int TILES_SIZE = 16,
             WIDTH = TILES_SIZE * (62 / 2),
             HEIGHT = 13 * TILES_SIZE;
 
     public static int SCALE = 3;
 
+    public static SoundGame soundGame = new SoundGame();
     public static final String TITLE = "BombermanGame by N11_OOP";
 
     private static final int BOMBRATE = 1;
@@ -107,15 +114,15 @@ public class Game extends Canvas {
         bs.show();
     }
 
-    private void update() {
+    private void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         _input.update();
         _input1.update1();
         _map.update();
     }
 
-    public void start() {
+    public void start() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         _running = true;
-
+        soundGame.playSound("Stage.wav", playSoundCheck);
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
         final double ns = 1000000000.0 / 60.0; //nanosecond, 60 frames per second

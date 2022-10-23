@@ -4,6 +4,9 @@ import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.tile.destroyable.DestroyableTile;
 import uet.oop.bomberman.graphics.Screen;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -29,7 +32,7 @@ public class LayeredEntity extends Entity {
 	}
 	
 	@Override
-	public void update() {
+	public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		clearRemoved();
 		getTopEntity().update();
 	}
@@ -57,7 +60,7 @@ public class LayeredEntity extends Entity {
 	}
 	
 	@Override
-	public boolean collide(Entity e) {
+	public boolean collide(Entity e) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		// TODO: lấy entity trên cùng ra để xử lý va chạm
 		return getTopEntity().collide(e);
 

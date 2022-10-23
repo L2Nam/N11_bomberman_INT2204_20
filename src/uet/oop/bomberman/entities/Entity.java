@@ -5,6 +5,10 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 /**
  * Lớp đại diện cho tất cả thực thể trong game (Bomber, Enemy, Wall, Brick,...)
  */
@@ -19,7 +23,7 @@ public abstract class Entity implements IRender {
 	 * mục đích để xử lý sự kiện và cập nhật trạng thái Entity
 	 */
 	@Override
-	public abstract void update();
+	public abstract void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
 
 	/**
 	 * Phương thức này được gọi liên tục trong vòng lặp game,
@@ -45,7 +49,7 @@ public abstract class Entity implements IRender {
 	 * @param e
 	 * @return
 	 */
-	public abstract boolean collide(Entity e);
+	public abstract boolean collide(Entity e) throws UnsupportedAudioFileException, LineUnavailableException, IOException;
 	
 	public double getX() {
 		return _x;

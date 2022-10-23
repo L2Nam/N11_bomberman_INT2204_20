@@ -11,6 +11,10 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public abstract class Enemy extends Character {
 
 	protected int _points;
@@ -40,7 +44,7 @@ public abstract class Enemy extends Character {
 	}
 	
 	@Override
-	public void update() {
+	public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		animate();
 		
 		if(!_alive) {
@@ -71,7 +75,7 @@ public abstract class Enemy extends Character {
 	}
 	
 	@Override
-	public void calculateMove() {
+	public void calculateMove() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		int xa = 0;
 		int ya = 0;
 		// TODO: Tính toán hướng đi và di chuyển Enemy theo _ai và cập nhật giá trị cho _direction
@@ -106,7 +110,7 @@ public abstract class Enemy extends Character {
 	}
 	
 	@Override
-	public boolean canMove(double x, double y) {
+	public boolean canMove(double x, double y) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		// TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
 		double xr = _x, yr = _y - 16; //subtract y to get more accurate results
 

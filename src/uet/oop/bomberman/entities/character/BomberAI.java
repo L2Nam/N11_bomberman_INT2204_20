@@ -4,12 +4,15 @@ import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
 public class BomberAI {
 
-    public static int calculateDirection(List<Bomb> bombs, Bomber bomber) {
+    public static int calculateDirection(List<Bomb> bombs, Bomber bomber) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         Random random = new Random();
         // TODO: cài đặt thuật toán tìm đường đi
         if(!Game.getBoard().detectNoEnemies()) {

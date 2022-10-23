@@ -13,6 +13,8 @@ import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.level.FileLevelLoader;
 import uet.oop.bomberman.level.LevelLoader;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -53,7 +55,7 @@ public class Map implements IRender {
 	}
 	
 	@Override
-	public void update() {
+	public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		if( _game.isPaused() ) return;
 		
 		updateEntities();
@@ -338,14 +340,14 @@ public class Map implements IRender {
 			itr.next().render(screen);
 	}
 
-	protected void updateEntities() {
+	protected void updateEntities() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		if( _game.isPaused() ) return;
 		for (int i = 0; i < _entities.length; i++) {
 			_entities[i].update();
 		}
 	}
 	
-	protected void updateCharacters() {
+	protected void updateCharacters() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		if( _game.isPaused() ) return;
 		Iterator<Character> itr = _characters.iterator();
 		
@@ -353,7 +355,7 @@ public class Map implements IRender {
 			itr.next().update();
 	}
 	
-	protected void updateBombs() {
+	protected void updateBombs() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		if( _game.isPaused() ) return;
 		Iterator<Bomb> itr = _bombs.iterator();
 		
@@ -361,7 +363,7 @@ public class Map implements IRender {
 			itr.next().update();
 	}
 
-	protected void updateBombs2() {
+	protected void updateBombs2() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		if( _game.isPaused() ) return;
 		Iterator<Bomb2> itr = _bombs2.iterator();
 		

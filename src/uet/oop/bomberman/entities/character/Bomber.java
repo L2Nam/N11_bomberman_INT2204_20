@@ -13,8 +13,14 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.level.Coordinates;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+
+import static uet.oop.bomberman.Game.soundGame;
+import static uet.oop.bomberman.SoundGame.playSoundCheck;
 
 
 public class Bomber extends Character {
@@ -40,7 +46,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void update() {
+    public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         clearBombs();
         if (!_alive) {
             afterKill();
@@ -73,7 +79,7 @@ public class Bomber extends Character {
         int xScroll = Screen.calculateXOffset(_map, this);
         Screen.setOffset(xScroll, 0);
     }
-    void AIdetectPlaceBomb() {
+    void AIdetectPlaceBomb() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         int x = Coordinates.pixelToTile(_x + _sprite.getSize()/2);
         int y = Coordinates.pixelToTile(_y - _sprite.getSize()/2 );
         if(!Game.getBoard().detectNoEnemies() && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
@@ -147,7 +153,7 @@ public class Bomber extends Character {
     /**
      * Kiểm tra xem có đặt được bom hay không? nếu có thì đặt bom tại vị trí hiện tại của Bomber
      */
-    private void detectPlaceBomb() {
+    private void detectPlaceBomb() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // TODO: kiểm tra xem phím điều khiển đặt bom có được gõ và giá trị _timeBetweenPutBombs, Game.getBombRate() có thỏa mãn hay không
         if(_input.space && Game.getBombRate()>0 && _timeBetweenPutBombs < 0){
             int x = Coordinates.pixelToTile(_x + _sprite.getSize()/2);
@@ -163,9 +169,10 @@ public class Bomber extends Character {
         // TODO: sau khi đặt, nhớ giảm số lượng Bomb Rate và reset _timeBetweenPutBombs về 0
     }
 
-    protected void placeBomb(int x, int y) {
+    protected void placeBomb(int x, int y) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // TODO: thực hiện tạo đối tượng bom, đặt vào vị trí (x, y)
         Bomb bomb = new Bomb(x,y, _map);
+        soundGame.playSound("PutBomb.wav", playSoundCheck);
         _map.addBomb(bomb);
 
     }
@@ -197,7 +204,7 @@ public class Bomber extends Character {
             _map.endGame();
         }
     }
-    void AIcalculateMove(){
+    void AIcalculateMove() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         double xa = 0, ya = 0;
         if(_steps <= 0){
             _direction = BomberAI.calculateDirection(_map.getBombs(), _map.getBomber());
@@ -220,7 +227,7 @@ public class Bomber extends Character {
         }
     }
     @Override
-    protected void calculateMove() {
+    protected void calculateMove() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // TODO: xử lý nhận tín hiệu điều khiển hướng đi từ _input và gọi move() để thực hiện di chuyển
         double xa = 0 , ya = 0 ;
         if(_input.up) ya--;
@@ -238,7 +245,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public boolean canMove(double x, double y) {
+    public boolean canMove(double x, double y) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
         for(int c = 0; c < 4 ; c++){
             double xt = ((_x + x) + c % 2 * 11) / Game.TILES_SIZE;
@@ -252,7 +259,7 @@ public class Bomber extends Character {
     }
 
     @Override
-    public void move(double xa, double ya) {
+    public void move(double xa, double ya) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
         // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không và thực hiện thay đổi tọa độ _x, _y
         if(canMove(xa, ya)) {
