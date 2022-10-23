@@ -40,7 +40,7 @@ public class Bomber2 extends Character{
         super(x, y, map);
         _bombs = _map.getBombs2();
         _input = _map.get_input1();
-        _sprite = Sprite.player_right;
+        _sprite = Sprite.player_right2;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Bomber2 extends Character{
         if (_alive)
             chooseSprite();
         else
-            _sprite = Sprite.player_dead1;
+            _sprite = Sprite.player_dead12;
 
         screen.renderEntity((int) _x, (int) _y - _sprite.SIZE, this);
     }
@@ -289,33 +289,33 @@ public class Bomber2 extends Character{
     private void chooseSprite() {
         switch (_direction) {
             case 0:
-                _sprite = Sprite.player_up;
+                _sprite = Sprite.player_up2;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player_up_12, Sprite.player_up_22, _animate, 20);
                 }
                 break;
             case 1:
-                _sprite = Sprite.player_right;
+                _sprite = Sprite.player_right2;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player_right_12, Sprite.player_right_22, _animate, 20);
                 }
                 break;
             case 2:
-                _sprite = Sprite.player_down;
+                _sprite = Sprite.player_down2;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player_down_12, Sprite.player_down_22, _animate, 20);
                 }
                 break;
             case 3:
-                _sprite = Sprite.player_left;
+                _sprite = Sprite.player_left2;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player_left_12, Sprite.player_left_22, _animate, 20);
                 }
                 break;
             default:
-                _sprite = Sprite.player_right;
+                _sprite = Sprite.player_right2;
                 if (_moving) {
-                    _sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+                    _sprite = Sprite.movingSprite(Sprite.player_right_12, Sprite.player_right_22, _animate, 20);
                 }
                 break;
         }
