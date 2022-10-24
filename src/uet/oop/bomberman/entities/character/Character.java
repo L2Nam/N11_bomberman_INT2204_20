@@ -16,7 +16,7 @@ public abstract class Character extends AnimatedEntitiy {
 	
 	protected Map _map;
 	protected int _direction = -1;
-	protected boolean _alive = true;
+	public static boolean _alive = true;
 	protected boolean _moving = false;
 	public int _timeAfter = 40;
 	

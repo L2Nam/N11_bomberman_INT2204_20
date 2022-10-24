@@ -195,6 +195,7 @@ public class Bomber extends Character {
     public void kill() {
         if (!_alive) return;
         _alive = false;
+
     }
 
     @Override

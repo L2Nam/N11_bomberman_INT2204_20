@@ -1,5 +1,7 @@
 package uet.oop.bomberman;
 
+import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.input.Keyboard;
 
@@ -37,7 +39,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
 
     public static final int TIME = 200;
     public static final int POINTS = 0;
-    public static  int _highscore = 0;
+    public static int _highscore = 0;
 
     protected static int SCREENDELAY = 3;
 
@@ -56,7 +58,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     private boolean _isOptions = false;
     private boolean _sr = true;
     private static Map _map;
-
+    public static boolean Game_over = false;
     private Screen screen;
     private Frame _frame;
 
@@ -130,7 +132,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         bs.show();
     }
 
-    private void renderScreen() {
+    private void renderScreen() throws IOException, FontFormatException {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
             createBufferStrategy(3);
@@ -153,7 +155,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         _map.update();
     }
 
-    public void start() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void start() throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         readHighscore();
         soundGame.playSound("Stage.wav", playSoundCheck);
         while (_menu) {
@@ -236,11 +238,12 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     public static void addBombRadius(int i) {
         bombRadius += i;
     }
+
     public static void addBombRadius2(int i) {
         bombRadius2 += i;
     }
 
-    public static void  addBombRate(int i) {
+    public static void addBombRate(int i) {
         bombRate += i;
     }
 
@@ -272,6 +275,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     public void mouseClicked(MouseEvent e) {
         Rectangle singleButton = new Rectangle(156, 85, 230, 70);
         if (singleButton.contains(e.getX(), e.getY()) && _menu) {
+            Game_over = false;
             is_multi = false;
             _menu = false;
             _running = true;
@@ -284,6 +288,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             } catch (UnsupportedAudioFileException ex) {
                 throw new RuntimeException(ex);
             }
+
         }
 
         Rectangle multiButton = new Rectangle(156, 205, 230, 70);
@@ -291,6 +296,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             is_multi = true;
             _menu = false;
             _running = true;
+            Game_over = false;
             try {
                 soundGame.playSound("click.wav", playSoundCheck);
             } catch (LineUnavailableException ex) {
@@ -332,6 +338,18 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             }
             System.exit(0);
         }
+        Rectangle backToMenu = new Rectangle(634, 424, 210, 64);
+        if (backToMenu.contains(e.getX(), e.getY()) && !_menu && (!Bomber._alive || !Bomber2._alive)) {
+            _menu = true;
+            Bomber._alive = true;
+            Bomber2._alive = true;
+            getBoard().setShow(4);
+            if(singleButton.contains(e.getX(),e.getY()) && _menu) {
+                _menu = false;
+                _map.loadLevel(1);
+            }
+
+        }
     }
 
 
@@ -349,6 +367,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             }
         }
     }
+
 
     @Override
     public void mousePressed(MouseEvent e) {

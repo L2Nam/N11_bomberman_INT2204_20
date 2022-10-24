@@ -138,7 +138,7 @@ public class Map implements IRender {
 		return total == 0;
 	}
 	
-	public void drawScreen(Graphics g) {
+	public void drawScreen(Graphics g) throws IOException, FontFormatException {
 		_screen.intializeFont();
 		switch (_screenToShow) {
 			case 1:

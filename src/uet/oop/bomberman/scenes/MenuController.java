@@ -11,20 +11,21 @@ import uet.oop.bomberman.level.FileLevelLoader;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.*;
 import java.io.IOException;
 
 import static uet.oop.bomberman.BombermanGame.primaryStage;
 
 
 public class MenuController {
-    public void singleGame() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void singleGame() throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         FileLevelLoader.is_multi = false;
         System.out.println("Start Single Game");
         primaryStage.close();
         new Frame();
     }
 
-    public void multiGame() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void multiGame() throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         FileLevelLoader.is_multi = true;
         System.out.println("Start Multiple Game");
         primaryStage.close();
