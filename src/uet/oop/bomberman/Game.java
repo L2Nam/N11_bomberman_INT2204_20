@@ -12,7 +12,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.IOException;
+import java.io.*;
 
 import static uet.oop.bomberman.SoundGame.playSoundCheck;
 import static uet.oop.bomberman.level.FileLevelLoader.is_multi;
@@ -37,6 +37,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
 
     public static final int TIME = 200;
     public static final int POINTS = 0;
+    public static  int _highscore = 0;
 
     protected static int SCREENDELAY = 3;
 
@@ -53,6 +54,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     private boolean _running = false;
     private boolean _paused = true;
     private boolean _isOptions = false;
+    private boolean _sr = true;
     private static Map _map;
 
     private Screen screen;
@@ -61,6 +63,34 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     private boolean _menu = true;
+
+    public void readHighscore() {
+        BufferedReader read;
+        try {
+            read = new BufferedReader(new FileReader(new File("res/data/BestScore.txt")));
+            String score = read.readLine().trim();
+            if (score == null)
+                _highscore = 0;
+            else
+                _highscore = Integer.parseInt(score);
+            read.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveHighScore() {
+        try {
+            File file = new File("res/data/BestScore.txt");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(String.valueOf(_highscore));
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public Game(Frame frame) {
         _frame = frame;
@@ -124,6 +154,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     }
 
     public void start() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        readHighscore();
         soundGame.playSound("Stage.wav", playSoundCheck);
         while (_menu) {
             renderScreen();
@@ -239,30 +270,66 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Rectangle singleButton = new Rectangle(Game.WIDTH + 129, Game.HEIGHT - 41, 237, 63);
+        Rectangle singleButton = new Rectangle(156, 85, 230, 70);
         if (singleButton.contains(e.getX(), e.getY()) && _menu) {
             is_multi = false;
             _menu = false;
             _running = true;
+            try {
+                soundGame.playSound("click.wav", playSoundCheck);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
-        Rectangle multiButton = new Rectangle(Game.WIDTH + 129, Game.HEIGHT + 62, 237, 63);
+        Rectangle multiButton = new Rectangle(156, 205, 230, 70);
         if (multiButton.contains(e.getX(), e.getY()) && _menu) {
             is_multi = true;
             _menu = false;
             _running = true;
+            try {
+                soundGame.playSound("click.wav", playSoundCheck);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
-        Rectangle optionButton = new Rectangle(Game.WIDTH + 129, Game.HEIGHT + 162, 237, 63);
+        Rectangle optionButton = new Rectangle(156, 325, 230, 70);
         if (optionButton.contains(e.getX(), e.getY()) && _menu) {
             _isOptions = true;
             _menu = false;
+            try {
+                soundGame.playSound("click.wav", playSoundCheck);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
             ///////
         }
 
-        Rectangle exitButton = new Rectangle(Game.WIDTH + 129, Game.HEIGHT + 262, 237, 63);
+        Rectangle exitButton = new Rectangle(156, 445, 230, 70);
         if (exitButton.contains(e.getX(), e.getY()) && _menu) {
             _menu = false;
+            try {
+                soundGame.playSound("click.wav", playSoundCheck);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
             System.exit(0);
         }
     }
@@ -270,10 +337,10 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Rectangle singleButton = new Rectangle(Game.WIDTH + 129, Game.HEIGHT - 41, 237, 63);
-        Rectangle multiButton = new Rectangle(Game.WIDTH + 129, Game.HEIGHT + 62, 237, 63);
-        Rectangle optionButton = new Rectangle(Game.WIDTH + 129, Game.HEIGHT + 162, 237, 63);
-        Rectangle exitButton = new Rectangle(Game.WIDTH + 129, Game.HEIGHT + 262, 237, 63);
+        Rectangle singleButton = new Rectangle(156, 85, 230, 70);
+        Rectangle multiButton = new Rectangle(156, 205, 230, 70);
+        Rectangle optionButton = new Rectangle(156, 325, 230, 70);
+        Rectangle exitButton = new Rectangle(156, 445, 230, 70);
         if (_menu) {
             if (singleButton.contains(e.getX(), e.getY()) || multiButton.contains(e.getX(), e.getY()) || optionButton.contains(e.getX(), e.getY()) || exitButton.contains(e.getX(), e.getY())) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -306,5 +373,13 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
 
+    }
+
+    public void set_highscore(int points) {
+        _highscore = points;
+    }
+
+    public int get_highscore() {
+        return _highscore;
     }
 }

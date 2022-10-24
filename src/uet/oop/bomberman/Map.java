@@ -122,6 +122,10 @@ public class Map implements IRender {
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
+		if(getPoints() >= _game.get_highscore()){
+			_game.set_highscore(getPoints());
+			_game.saveHighScore();
+		}
 	}
 	
 	public boolean detectNoEnemies() {
@@ -138,7 +142,7 @@ public class Map implements IRender {
 		_screen.intializeFont();
 		switch (_screenToShow) {
 			case 1:
-				//_screen.drawEndGame(g, _points);
+				_screen.drawEndGame(g, _points);
 				break;
 			case 2:
 				_screen.drawChangeLevel(g, levelLoader.getLevel());

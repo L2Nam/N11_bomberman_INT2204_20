@@ -26,10 +26,10 @@ public class ProgressBar extends JFrame {
     public void iterate() {
         while (i <= 2000) {
             jb.setValue(i);
-            if (i <= 1700) {
-                i += 20;
+            if (i <= 1600) {
+                i += 2000;
             } else {
-                i += 10;
+                i += 12;
             }
             try {
                 Thread.sleep(150);
