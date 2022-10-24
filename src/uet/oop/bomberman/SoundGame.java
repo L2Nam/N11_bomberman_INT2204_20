@@ -8,7 +8,7 @@ public class SoundGame {
     public static boolean playSoundCheck = true;
     public void playSound(String soundFile, boolean playSoundCheck) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (playSoundCheck) {
-            File f = new File( soundFile);
+            File f = new File(soundFile);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);

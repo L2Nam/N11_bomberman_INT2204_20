@@ -260,17 +260,19 @@ public class Bomber extends Character {
 
     @Override
     public void move(double xa, double ya) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-
-        // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không và thực hiện thay đổi tọa độ _x, _y
-        if(canMove(xa, ya)) {
-            _y += ya;
-            _x += xa;
-        }
         // TODO: nhớ cập nhật giá trị _direction sau khi di chuyển
         if(xa > 0) _direction = 1;
         if(xa < 0) _direction = 3;
         if(ya > 0) _direction = 2;
         if(ya < 0) _direction = 0;
+
+        if (canMove(0, ya)) {
+            _y += ya;
+        }
+
+        if (canMove(xa, 0)) {
+            _x += xa;
+        }
     }
 
     @Override

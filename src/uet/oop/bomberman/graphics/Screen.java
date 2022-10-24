@@ -6,12 +6,19 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.Bomber2;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Xử lý render cho tất cả Entity và một số màn hình phụ ra Game Panel
  */
 public class Screen {
+	private Image backgroundFixed;
+	private BufferedImage background;
+	private Font font;
 	protected int _width, _height;
 	public int[] _pixels;
 	private int _transparentColor = 0xffff00ff;
@@ -23,7 +30,13 @@ public class Screen {
 		_height = height;
 		
 		_pixels = new int[width * height];
-		
+
+		try {
+			background = ImageIO.read(new File("res/textures/menu.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		backgroundFixed = background.getScaledInstance(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE, Image.SCALE_DEFAULT);
 	}
 	
 	public void clear() {
@@ -101,39 +114,34 @@ public class Screen {
 
 		return temp;
 	}
-	
-	public void drawEndGame(Graphics g, int points) {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, getRealWidth(), getRealHeight());
-		
-		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
-		g.setFont(font);
-		g.setColor(Color.white);
-		drawCenteredString("GAME OVER", getRealWidth(), getRealHeight(), g);
-		
-		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
-		g.setFont(font);
-		g.setColor(Color.yellow);
-		drawCenteredString("POINTS: " + points, getRealWidth(), getRealHeight() + (Game.TILES_SIZE * 2) * Game.SCALE, g);
-	}
 
-	public void drawChangeLevel(Graphics g, int level) {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, getRealWidth(), getRealHeight());
-		
-		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
-		g.setFont(font);
-		g.setColor(Color.white);
-		drawCenteredString("LEVEL " + level, getRealWidth(), getRealHeight(), g);
-		
+	public void intializeFont() {
+		try {
+			File fontFile = new File("res/font/VBRUSHTB.ttf");
+			font = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(Font.PLAIN, 60);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(font);
+		} catch (IOException | FontFormatException e) {
+			//Handle exception
+		}
 	}
-	
 	public void drawPaused(Graphics g) {
-		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
 		g.setFont(font);
 		g.setColor(Color.white);
 		drawCenteredString("PAUSED", getRealWidth(), getRealHeight(), g);
-		
+
+	}
+	public void drawChangeLevel(Graphics g, int level) {
+		g.setColor(Color.black);
+		g.fillRect(0, 0, getRealWidth(), getRealHeight());
+
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("LEVEL " + level, getRealWidth(), getRealHeight(), g);
+	}
+
+	public void drawMenu(Graphics g) {
+		g.drawImage(backgroundFixed, 0, 0, null);
 	}
 
 	public void drawCenteredString(String s, int w, int h, Graphics g) {
@@ -142,6 +150,13 @@ public class Screen {
 	    int y = (fm.getAscent() + (h - (fm.getAscent() + fm.getDescent())) / 2);
 	    g.drawString(s, x, y);
 	 }
+
+	public void drawCenteredImage(Image image, int imageWidth, int imageHeight,
+								  int gameWidth, int gameHeight, Graphics g) {
+		int x = (gameWidth - imageWidth) / 2;
+		int y = (gameHeight - imageHeight) / 2;
+		g.drawImage(image, x, y, null);
+	}
 	
 	public int getWidth() {
 		return _width;

@@ -45,13 +45,14 @@ public class Map implements IRender {
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
 	
-	public Map(Game game, Keyboard input, Keyboard _input1, Screen screen) {
+	public Map(Game game, Keyboard input, Keyboard input1, Screen screen) {
 		_game = game;
 		_input = input;
 		_screen = screen;
-		this._input1 = _input1;
-		
-		loadLevel(1); //start in level
+		_input1 = input1;
+
+		_screenToShow = 4;
+
 	}
 	
 	@Override
@@ -73,12 +74,6 @@ public class Map implements IRender {
 	@Override
 	public void render(Screen screen) {
 		if( _game.isPaused() ) return;
-		
-		//only render the visible part of screen
-//		int x0 = Screen.xOffset >> 4; //tile precision, -> left X
-//		int x1 = (Screen.xOffset + screen.getWidth() + Game.TILES_SIZE) / Game.TILES_SIZE; // -> right X
-//		int y0 = Screen.yOffset >> 4;
-//		int y1 = (Screen.yOffset + screen.getHeight()) / Game.TILES_SIZE; //render one tile plus to fix black margins
 
 		int x0 = 0,x1 = 31, y0 = 0, y1 = 13;
 
@@ -140,36 +135,10 @@ public class Map implements IRender {
 	}
 	
 	public void drawScreen(Graphics g) {
+		_screen.intializeFont();
 		switch (_screenToShow) {
 			case 1:
-				_screen.drawEndGame(g, _points);
-				BufferedWriter bw = null;
-				FileWriter fw = null;
-				try {
-					String data = String.valueOf(_points);
-					File file = new File("HightScore1.txt");
-					// if file doesnt exists, then create it
-					if (!file.exists()) {
-						file.createNewFile();
-					}
-					// true = append file
-					fw = new FileWriter(file.getAbsoluteFile(), true);
-					bw = new BufferedWriter(fw);
-					bw.write(data);
-					bw.write('\n');
-					System.out.println("Success...");
-				} catch (IOException e) {
-					e.printStackTrace();
-				} finally {
-					try {
-						if (bw != null)
-							bw.close();
-						if (fw != null)
-							fw.close();
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-				}
+				//_screen.drawEndGame(g, _points);
 				break;
 			case 2:
 				_screen.drawChangeLevel(g, levelLoader.getLevel());
@@ -177,6 +146,8 @@ public class Map implements IRender {
 			case 3:
 				_screen.drawPaused(g);
 				break;
+			case 4:
+				_screen.drawMenu(g);
 		}
 	}
 	

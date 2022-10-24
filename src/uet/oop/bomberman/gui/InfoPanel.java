@@ -30,13 +30,4 @@ public class InfoPanel extends JPanel {
 		setBackground(Color.black);
 		setPreferredSize(new Dimension(0, 40));
 	}
-
-	public void setTime(int t) {
-		timeLabel.setText("Time: " + t);
-	}
-
-	public void setPoints(int t) {
-		pointsLabel.setText("Score: " + t);
-	}
-
 }

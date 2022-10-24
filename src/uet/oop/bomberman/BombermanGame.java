@@ -5,28 +5,42 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import uet.oop.bomberman.gui.Frame;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
-public class BombermanGame extends Application {
+import static uet.oop.bomberman.ScreenLoad._scLoad;
+import static uet.oop.bomberman.ScreenLoad.isDone;
+
+public class BombermanGame {
     public static Stage primaryStage;
-
-    @Override
-    public void start(Stage stage) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/scenes/Menu.fxml"));
-            Scene scene = new Scene(root);
-            stage.setTitle("Bomberman by OOP_N11");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            primaryStage = stage;
-            primaryStage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+//
+//    @Override
+//    public void start(Stage stage) {
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("/scenes/Menu.fxml"));
+//            Scene scene = new Scene(root);
+//            stage.setTitle("Bomberman by OOP_N11");
+//            stage.setScene(scene);
+//            stage.setResizable(false);
+//            primaryStage = stage;
+//            primaryStage.show();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+    public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        ScreenLoad intro = new ScreenLoad();
+        intro.iterate();
+        if(isDone) {
+            _scLoad.setVisible(false);
+            new Frame();
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
+        else {
+            System.out.println("Please wait a moment");
+        }
     }
 }
