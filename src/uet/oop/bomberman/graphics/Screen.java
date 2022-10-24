@@ -173,4 +173,19 @@ public class Screen {
 	public int getRealHeight() {
 		return _height * Game.SCALE;
 	}
+
+    public void drawEndGame(Graphics g, int points) {
+		g.setColor(Color.black);
+		g.fillRect(0, 0, getRealWidth(), getRealHeight());
+
+		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.white);
+		drawCenteredString("GAME OVER", getRealWidth(), getRealHeight(), g);
+
+		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
+		g.setFont(font);
+		g.setColor(Color.yellow);
+		drawCenteredString("POINTS: " + points, getRealWidth(), getRealHeight() + (Game.TILES_SIZE * 2) * Game.SCALE, g);
+    }
 }

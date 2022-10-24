@@ -11,8 +11,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
-import static uet.oop.bomberman.ScreenLoad._scLoad;
-import static uet.oop.bomberman.ScreenLoad.isDone;
+import static uet.oop.bomberman.ProgressBar.isDoned;
+//import static uet.oop.bomberman.ScreenLoad._scLoad;
+//import static uet.oop.bomberman.ScreenLoad.isDone;
 
 public class BombermanGame {
     public static Stage primaryStage;
@@ -33,10 +34,12 @@ public class BombermanGame {
 //    }
 //
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        ScreenLoad intro = new ScreenLoad();
+        ProgressBar intro = new ProgressBar();
+        intro.setVisible(true);
+        intro.setLocationRelativeTo(null);
         intro.iterate();
-        if(isDone) {
-            _scLoad.setVisible(false);
+        if(isDoned) {
+            intro.setVisible(false);
             new Frame();
         }
         else {
