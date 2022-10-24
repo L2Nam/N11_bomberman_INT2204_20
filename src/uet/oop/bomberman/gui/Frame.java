@@ -14,7 +14,7 @@ public class Frame extends JFrame{
     private InfoPanel _infopanel;
     private Game _game;
 
-    public Frame() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public Frame() throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         _containerpane = new JPanel(new BorderLayout());
         _gamepane = new GamePanel(this);
         _infopanel = new InfoPanel(_gamepane.getGame());

@@ -16,6 +16,7 @@ import java.io.IOException;
  * Xử lý render cho tất cả Entity và một số màn hình phụ ra Game Panel
  */
 public class Screen {
+
 	private Image backgroundFixed;
 	private BufferedImage background;
 	private Font font;
@@ -37,7 +38,9 @@ public class Screen {
 			e.printStackTrace();
 		}
 		backgroundFixed = background.getScaledInstance(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE, Image.SCALE_DEFAULT);
+
 	}
+
 	
 	public void clear() {
 		for (int i = 0; i < _pixels.length; i++) {
@@ -174,18 +177,33 @@ public class Screen {
 		return _height * Game.SCALE;
 	}
 
-    public void drawEndGame(Graphics g, int points) {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, getRealWidth(), getRealHeight());
+    public void drawEndGame(Graphics g, int points) throws IOException, FontFormatException {
+		BufferedImage gameover = null;
+		try {
+			gameover = ImageIO.read(new File("res/textures/GameOver.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Image _gameover = gameover.getScaledInstance(gameover.getWidth(), gameover.getHeight(), Image.SCALE_DEFAULT);
+		drawCenteredImage(gameover,gameover.getWidth(), gameover.getHeight(), getRealWidth(), getRealHeight(), g);
 
-		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
-		g.setFont(font);
-		g.setColor(Color.white);
-		drawCenteredString("GAME OVER", getRealWidth(), getRealHeight(), g);
+//		g.setColor(Color.black);
+//		g.fillRect(0, 0, getRealWidth(), getRealHeight());
+//
+//		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
+//		g.setFont(font);
+//		g.setColor(Color.white);
+//		drawCenteredString("GAME OVER", getRealWidth(), getRealHeight() - 100, g);
+		File fontFile = new File("res/font/VBRUSHTB.ttf");
 
-		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
-		g.setFont(font);
-		g.setColor(Color.yellow);
-		drawCenteredString("POINTS: " + points, getRealWidth(), getRealHeight() + (Game.TILES_SIZE * 2) * Game.SCALE, g);
+		Font font1 = Font.createFont(Font.TRUETYPE_FONT, fontFile).deriveFont(Font.PLAIN, 50);
+		g.setFont(font1);
+		g.setColor(Color.WHITE);
+		drawCenteredString("POINTS: " + points, getRealWidth(), getRealHeight() - 180 + (Game.TILES_SIZE * 2) * Game.SCALE, g);
+
+		g.setFont(font1);
+		g.setColor(Color.WHITE);
+		drawCenteredString("HIGHSCORE: " + Game._highscore, getRealWidth(), getRealHeight() -60 + (Game.TILES_SIZE * 2) * Game.SCALE, g);
+		Game.Game_over = true;
     }
 }
