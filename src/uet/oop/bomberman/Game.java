@@ -341,9 +341,52 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             }
             System.exit(0);
         }
-        Rectangle backToMenu = new Rectangle(634, 424, 210, 64);
-        if (backToMenu.contains(e.getX(), e.getY()) && !_menu) {
+
+        Rectangle single = new Rectangle(480, 410, 150, 45);
+        if (single.contains(e.getX(), e.getY()) && !_menu && Game_over) {
+            try {
+                soundGame.playSound("click.wav", playSoundCheck);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
+            Game_over = false;
+            is_multi = false;
             getBoard().newGame();
+        }
+
+        Rectangle multi = new Rectangle(670, 410, 150, 45);
+        if (multi.contains(e.getX(), e.getY()) && !_menu && Game_over) {
+            try {
+                soundGame.playSound("click.wav", playSoundCheck);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
+            Game_over = false;
+            is_multi = true;
+            getBoard().newGame();
+        }
+
+        Rectangle exit = new Rectangle(860, 410, 150, 45);
+        if (exit.contains(e.getX(), e.getY()) && !_menu && Game_over) {
+            _menu = false;
+            try {
+                soundGame.playSound("click.wav", playSoundCheck);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
+            System.exit(0);
         }
     }
 
