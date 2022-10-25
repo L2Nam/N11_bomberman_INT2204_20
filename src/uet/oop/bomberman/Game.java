@@ -308,10 +308,14 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             }
         }
 
-        Rectangle optionButton = new Rectangle(156, 325, 230, 70);
-        if (optionButton.contains(e.getX(), e.getY()) && _menu) {
-            _isOptions = true;
-            _menu = false;
+        Rectangle helpButton = new Rectangle(156, 325, 230, 70);
+        if (helpButton.contains(e.getX(), e.getY()) && _menu) {
+            _isOptions = !_isOptions;
+            if (_isOptions) {
+                getBoard().setShow(5);
+            } else {
+                getBoard().setShow(4);
+            }
             try {
                 soundGame.playSound("click.wav", playSoundCheck);
             } catch (LineUnavailableException ex) {
@@ -321,7 +325,6 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             } catch (UnsupportedAudioFileException ex) {
                 throw new RuntimeException(ex);
             }
-            ///////
         }
 
         Rectangle exitButton = new Rectangle(156, 445, 230, 70);
@@ -339,16 +342,8 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             System.exit(0);
         }
         Rectangle backToMenu = new Rectangle(634, 424, 210, 64);
-        if (backToMenu.contains(e.getX(), e.getY()) && !_menu && (!Bomber._alive || !Bomber2._alive)) {
-            _menu = true;
-            Bomber._alive = true;
-            Bomber2._alive = true;
-            getBoard().setShow(4);
-            if(singleButton.contains(e.getX(),e.getY()) && _menu) {
-                _menu = false;
-                _map.loadLevel(1);
-            }
-
+        if (backToMenu.contains(e.getX(), e.getY()) && !_menu) {
+            getBoard().newGame();
         }
     }
 

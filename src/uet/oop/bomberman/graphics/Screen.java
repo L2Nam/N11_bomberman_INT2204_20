@@ -17,6 +17,7 @@ import java.io.IOException;
  */
 public class Screen {
 
+	private BufferedImage howtoPlay;
 	private Image backgroundFixed;
 	private BufferedImage background;
 	private Font font;
@@ -39,6 +40,11 @@ public class Screen {
 		}
 		backgroundFixed = background.getScaledInstance(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE, Image.SCALE_DEFAULT);
 
+		try {
+			howtoPlay = ImageIO.read(new File("res/textures/howtoplay.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -145,6 +151,10 @@ public class Screen {
 
 	public void drawMenu(Graphics g) {
 		g.drawImage(backgroundFixed, 0, 0, null);
+	}
+
+	public void drawHelp(Graphics g) {
+		g.drawImage(howtoPlay, 486, 60, null);
 	}
 
 	public void drawCenteredString(String s, int w, int h, Graphics g) {

@@ -137,7 +137,24 @@ public class Map implements IRender {
 		
 		return total == 0;
 	}
-	
+
+	public void newGame() {
+		resetProperties();
+		loadLevel(1);
+	}
+
+	@SuppressWarnings("static-access")
+	private void resetProperties() {
+		_points = Game.POINTS;
+
+		_game.bomberSpeed = 1.0;
+		_game.bombRadius = 1;
+		_game.bombRate = 1;
+		_game.bomberSpeed2 = 1.0;
+		_game.bombRadius2 = 1;
+		_game.bombRate2 = 1;
+
+	}
 	public void drawScreen(Graphics g) throws IOException, FontFormatException {
 		_screen.intializeFont();
 		switch (_screenToShow) {
@@ -152,6 +169,10 @@ public class Map implements IRender {
 				break;
 			case 4:
 				_screen.drawMenu(g);
+				break;
+			case 5:
+				_screen.drawHelp(g);
+				break;
 		}
 	}
 	
