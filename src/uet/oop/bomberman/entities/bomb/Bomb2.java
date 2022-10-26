@@ -96,7 +96,7 @@ public class Bomb2 extends AnimatedEntitiy {
         for(int i=0;i<_flames.length;i++) {
             _flames[i] = new Flame((int) _x, (int) _y, i, Game.getBombRadius2(), _map);
         }
-        soundGame.playSound("Explosion.wav", playSoundCheck);
+        soundGame.playSound("Explosion.wav", playSoundCheck,0);
     }
 
     public FlameSegment flameAt(int x, int y) {

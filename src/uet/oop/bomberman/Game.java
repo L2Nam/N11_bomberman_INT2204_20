@@ -16,9 +16,10 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.*;
+import java.util.Random;
 
 import static uet.oop.bomberman.SoundGame.playSoundCheck;
-import static uet.oop.bomberman.level.FileLevelLoader.is_multi;
+import static uet.oop.bomberman.level.FileLevelLoader.*;
 
 /**
  * Tạo vòng lặp cho game, lưu trữ một vài tham số cấu hình toàn cục,
@@ -53,6 +54,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     protected static double bomberSpeed2 = BOMBERSPEED;
     protected int _screenDelay = SCREENDELAY;
 
+    Random random = new Random();
     private Keyboard _input;
     private Keyboard _input1;
     private boolean _running = false;
@@ -159,11 +161,19 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
 
     public void start() throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
         readHighscore();
-        soundGame.playSound("Stage.wav", playSoundCheck);
+        soundGame.playSound("Stage.wav", playSoundCheck,0);
         while (_menu) {
             renderScreen();
         }
-        _map.loadLevel(1);
+        //_map.loadLevel(1);
+        if (level_load) {
+            _map.loadLevel(random.nextInt(5)+1);
+
+            level_load = false;
+        } else {
+            _map.loadLevel(1);
+
+        }
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
         final double ns = 1000000000.0 / 60.0; // nanosecond, 60 frames per second
@@ -296,7 +306,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             _menu = false;
             _running = true;
             try {
-                soundGame.playSound("click.wav", playSoundCheck);
+                soundGame.playSound("click.wav", playSoundCheck,0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -313,8 +323,9 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             _menu = false;
             _running = true;
             Game_over = false;
+            level_load = true;
             try {
-                soundGame.playSound("click.wav", playSoundCheck);
+                soundGame.playSound("click.wav", playSoundCheck,0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -333,7 +344,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
                 getBoard().setShow(4);
             }
             try {
-                soundGame.playSound("click.wav", playSoundCheck);
+                soundGame.playSound("click.wav", playSoundCheck,0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -347,7 +358,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         if (exitButton.contains(e.getX(), e.getY()) && _menu) {
             _menu = false;
             try {
-                soundGame.playSound("click.wav", playSoundCheck);
+                soundGame.playSound("click.wav", playSoundCheck,0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -358,10 +369,40 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             System.exit(0);
         }
 
+        Rectangle sound = new Rectangle(1398,22,95,38);
+        if (sound.contains(e.getX(), e.getY() ) && _menu) {
+            playSoundCheck = !playSoundCheck;
+            if (playSoundCheck) {
+                getBoard().setShow(6);
+                soundGame.stopSound();
+                try {
+                    soundGame.playSound("Stage.wav", playSoundCheck,0);
+                } catch (LineUnavailableException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (UnsupportedAudioFileException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                getBoard().setShow(7);
+                soundGame.stopSound();
+            }
+            try {
+                soundGame.playSound("click.wav", playSoundCheck,0);
+            } catch (LineUnavailableException ex) {
+                throw new RuntimeException(ex);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
         Rectangle single = new Rectangle(480, 410, 150, 45);
         if (single.contains(e.getX(), e.getY()) && !_menu && Game_over) {
             try {
-                soundGame.playSound("click.wav", playSoundCheck);
+                soundGame.playSound("click.wav", playSoundCheck,0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -377,7 +418,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         Rectangle multi = new Rectangle(670, 410, 150, 45);
         if (multi.contains(e.getX(), e.getY()) && !_menu && Game_over) {
             try {
-                soundGame.playSound("click.wav", playSoundCheck);
+                soundGame.playSound("click.wav", playSoundCheck,0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -387,6 +428,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             }
             Game_over = false;
             is_multi = true;
+            level_load = true;
             getBoard().newGame();
             _frame.get_infopanel().setVisible(false);
         }
@@ -395,7 +437,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         if (exit.contains(e.getX(), e.getY()) && !_menu && Game_over) {
             _menu = false;
             try {
-                soundGame.playSound("click.wav", playSoundCheck);
+                soundGame.playSound("click.wav", playSoundCheck,0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {

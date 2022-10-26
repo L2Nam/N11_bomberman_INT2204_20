@@ -171,7 +171,7 @@ public class Bomber2 extends Character{
     protected void placeBomb(int x, int y) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // TODO: thực hiện tạo đối tượng bom, đặt vào vị trí (x, y)
         Bomb2 bomb = new Bomb2(x,y, _map);
-        soundGame.playSound("PutBomb.wav", playSoundCheck);
+        soundGame.playSound("PutBomb.wav", playSoundCheck,0);
         _map.addBomb2(bomb);
     }
 

@@ -19,6 +19,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 public class FileLevelLoader extends LevelLoader {
@@ -30,6 +31,8 @@ public class FileLevelLoader extends LevelLoader {
 	 * từ ma trận bản đồ trong tệp cấu hình
 	 */
 	private static char[][] _map;
+	Random random = new Random();
+	public static boolean level_load = false;
 	
 	public FileLevelLoader(Map map, int level) throws LoadLevelException {
 		super(map, level);

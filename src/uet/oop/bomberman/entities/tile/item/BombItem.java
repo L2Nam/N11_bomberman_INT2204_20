@@ -28,7 +28,7 @@ public class BombItem extends Item {
                 Game.addBombRate(1);
             else
                 Game.addBombRate2(1);
-            soundGame.playSound("eat_item.wav", playSoundCheck);
+            soundGame.playSound("eat_item.wav", playSoundCheck,0);
         }
         return false;
     }

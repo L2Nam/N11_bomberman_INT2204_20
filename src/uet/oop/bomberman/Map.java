@@ -23,8 +23,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import static uet.oop.bomberman.level.FileLevelLoader.is_multi;
+import static uet.oop.bomberman.level.FileLevelLoader.level_load;
 
 
 /**
@@ -36,6 +38,7 @@ public class Map implements IRender {
 	protected Keyboard _input;
 	protected Keyboard _input1;
 	protected Screen _screen;
+	Random random = new Random();
 	
 	public Entity[] _entities;
 	public List<Character> _characters = new ArrayList<>();
@@ -147,7 +150,11 @@ public class Map implements IRender {
 
 	public void newGame() {
 		resetProperties();
-		loadLevel(1);
+		if (level_load) {
+			loadLevel(random.nextInt(5) + 1);
+		} else {
+			loadLevel(1);
+		}
 	}
 
 	@SuppressWarnings("static-access")
@@ -184,6 +191,12 @@ public class Map implements IRender {
 				break;
 			case 5:
 				_screen.drawHelp(g);
+				break;
+			case 6:
+				_screen.drawSoundOn(g);
+				break;
+			case 7:
+				_screen.drawSoundOff(g);
 				break;
 		}
 	}

@@ -30,7 +30,7 @@ public class SpeedItem extends Item {
 			if (e instanceof Bomber2) {
 				Game.addBomberSpeed2(0.3);
 			}
-			soundGame.playSound("eat_item.wav", playSoundCheck);
+			soundGame.playSound("eat_item.wav", playSoundCheck,0);
 		}
 		return false;
 	}

@@ -79,7 +79,7 @@ public class FlameSegment extends Entity {
             ((Character) e).kill();
         }
         if (e instanceof Enemy) {
-            soundGame.playSound("Hit.wav", playSoundCheck);
+            soundGame.playSound("Hit.wav", playSoundCheck,0);
         }
         return true;
     }

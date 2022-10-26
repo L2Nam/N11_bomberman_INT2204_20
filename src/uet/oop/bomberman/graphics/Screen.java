@@ -18,6 +18,8 @@ import java.io.IOException;
 public class Screen {
 
 	private BufferedImage howtoPlay;
+	private BufferedImage soundOn;
+	private BufferedImage soundOff;
 	private Image backgroundFixed;
 	private BufferedImage background;
 	private Font font;
@@ -45,6 +47,18 @@ public class Screen {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			soundOn = ImageIO.read(new File("res/textures/btn_on.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			soundOff = ImageIO.read(new File("res/textures/btn_off.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	
@@ -151,11 +165,20 @@ public class Screen {
 
 	public void drawMenu(Graphics g) {
 		g.drawImage(backgroundFixed, 0, 0, null);
+		g.drawImage(soundOn,1385, 11, null);
 	}
 
 	public void drawHelp(Graphics g) {
 		g.drawImage(howtoPlay, 486, 60, null);
 	}
+
+	public void drawSoundOn(Graphics g) {
+		g.drawImage(soundOn,1385, 11, null);
+	}
+	public void drawSoundOff(Graphics g) {
+		g.drawImage(soundOff,1385, 11, null);
+	}
+
 
 	public void drawCenteredString(String s, int w, int h, Graphics g) {
 	    FontMetrics fm = g.getFontMetrics();

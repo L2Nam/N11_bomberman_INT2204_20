@@ -28,7 +28,7 @@ public class FlameItem extends Item {
 				Game.addBombRadius(1);
 			else
 				Game.addBombRadius2(1);
-			soundGame.playSound("eat_item.wav", playSoundCheck);
+			soundGame.playSound("eat_item.wav", playSoundCheck,0);
 		}
 		return false;
 	}
