@@ -42,7 +42,7 @@ public abstract class Character extends AnimatedEntitiy {
 	/**
 	 * Được gọi khi đối tượng bị tiêu diệt
 	 */
-	public abstract void kill();
+	public abstract void kill() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
 
 	/**
 	 * Xử lý hiệu ứng bị tiêu diệt

@@ -96,6 +96,12 @@ public class Map implements IRender {
 	}
 
 	public void restartLevel() {
+		_game.bomberSpeed = 1.0;
+		_game.bombRadius = 1;
+		_game.bombRate = 1;
+		_game.bomberSpeed2 = 1.0;
+		_game.bombRadius2 = 1;
+		_game.bombRate2 = 1;
 		loadLevel(levelLoader.getLevel());
 	}
 

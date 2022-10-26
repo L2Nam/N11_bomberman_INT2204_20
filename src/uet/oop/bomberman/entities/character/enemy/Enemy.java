@@ -15,6 +15,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
+import static uet.oop.bomberman.Game.soundGame;
+import static uet.oop.bomberman.SoundGame.playSoundCheck;
+
 public abstract class Enemy extends Character {
 
 	protected int _points;
@@ -129,7 +132,7 @@ public abstract class Enemy extends Character {
 	}
 
 	@Override
-	public boolean collide(Entity e) {
+	public boolean collide(Entity e) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 		// TODO: xử lý va chạm với Flame
 		if(e instanceof Flame) {
 			kill();
@@ -149,7 +152,8 @@ public abstract class Enemy extends Character {
 	}
 	
 	@Override
-	public void kill() {
+	public void kill() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+		soundGame.playSound("Hit.wav", playSoundCheck, 0);
 		if(!_alive) return;
 		_alive = false;
 		
