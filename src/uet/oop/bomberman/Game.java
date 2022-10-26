@@ -374,7 +374,6 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             playSoundCheck = !playSoundCheck;
             if (playSoundCheck) {
                 getBoard().setShow(6);
-                soundGame.stopSound();
                 try {
                     soundGame.playSound("Stage.wav", playSoundCheck,0);
                 } catch (LineUnavailableException ex) {
@@ -388,15 +387,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
                 getBoard().setShow(7);
                 soundGame.stopSound();
             }
-            try {
-                soundGame.playSound("click.wav", playSoundCheck,0);
-            } catch (LineUnavailableException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (UnsupportedAudioFileException ex) {
-                throw new RuntimeException(ex);
-            }
+
         }
 
         Rectangle single = new Rectangle(480, 410, 150, 45);
