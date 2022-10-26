@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static uet.oop.bomberman.level.FileLevelLoader.is_multi;
+
 
 /**
  * Quản lý thao tác điều khiển, load level, render các màn hình của game
@@ -44,6 +46,7 @@ public class Map implements IRender {
 	
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
+	private int _lives = Game.LIVES;
 	
 	public Map(Game game, Keyboard input, Keyboard input1, Screen screen) {
 		_game = game;
@@ -88,13 +91,16 @@ public class Map implements IRender {
 		renderCharacter(screen);
 		
 	}
-	
+
+	public void restartLevel() {
+		loadLevel(levelLoader.getLevel());
+	}
+
 	public void nextLevel() {
 		loadLevel(levelLoader.getLevel() + 1);
 	}
 	
 	public void loadLevel(int level) {
-		_time = Game.TIME;
 		_screenToShow = 2;
 		_game.resetScreenDelay();
 		_game.pause();
@@ -122,6 +128,7 @@ public class Map implements IRender {
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
+		_game.isEndgame = true;
 		if(getPoints() >= _game.get_highscore()){
 			_game.set_highscore(getPoints());
 			_game.saveHighScore();
@@ -146,6 +153,7 @@ public class Map implements IRender {
 	@SuppressWarnings("static-access")
 	private void resetProperties() {
 		_points = Game.POINTS;
+		_lives = Game.LIVES;
 
 		_game.bomberSpeed = 1.0;
 		_game.bombRadius = 1;
@@ -159,8 +167,12 @@ public class Map implements IRender {
 		_screen.intializeFont();
 		switch (_screenToShow) {
 			case 1:
-				_screen.drawEndGame(g, _points);
-				break;
+				if(!is_multi) {
+					_screen.drawEndGame(g, _points);
+					break;
+				} else {
+					break;
+				}
 			case 2:
 				_screen.drawChangeLevel(g, levelLoader.getLevel());
 				break;
@@ -367,13 +379,6 @@ public class Map implements IRender {
 			itr.next().update();
 	}
 
-	public int subtractTime() {
-		if(_game.isPaused())
-			return this._time;
-		else
-			return this._time--;
-	}
-
 	public Keyboard getInput() {
 		return _input;
 	}
@@ -406,8 +411,16 @@ public class Map implements IRender {
 		return _points;
 	}
 
+	public int getLives() {
+		return _lives;
+	}
+
 	public void addPoints(int points) {
 		this._points += points;
+	}
+
+	public void addLives(int lives) {
+		this._lives += lives;
 	}
 	
 	public int getWidth() {

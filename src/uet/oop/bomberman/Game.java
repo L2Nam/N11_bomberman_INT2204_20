@@ -4,6 +4,7 @@ import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.input.Keyboard;
+import uet.oop.bomberman.gui.Frame;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -39,6 +40,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
 
     public static final int TIME = 200;
     public static final int POINTS = 0;
+    public static final int LIVES = 3;
     public static int _highscore = 0;
 
     protected static int SCREENDELAY = 3;
@@ -56,7 +58,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     private boolean _running = false;
     private boolean _paused = true;
     private boolean _isOptions = false;
-    private boolean _sr = true;
+    public boolean isEndgame = false;
     private static Map _map;
     public static boolean Game_over = false;
     private Screen screen;
@@ -179,6 +181,13 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
                 updates++;
                 delta--;
             }
+            if(!is_multi) {
+                if(!_paused) {
+                    _frame.get_infopanel().setVisible(true);
+                } else {
+                    _frame.get_infopanel().setVisible(isEndgame);
+                }
+            }
             if (_paused) {
                 if (_screenDelay <= 0) {
                     _map.setShow(-1);
@@ -192,6 +201,8 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
 
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
+                _frame.setPoints(_map.getPoints());
+                _frame.setLives(_map.getLives());
                 timer += 1000;
                 _frame.setTitle(TITLE);
                 updates = 0;
@@ -201,6 +212,11 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
                     --_screenDelay;
             }
         }
+    }
+
+    public void run() {
+        _running = true;
+        _paused = false;
     }
 
     public static double getBomberSpeed() {
@@ -372,6 +388,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             Game_over = false;
             is_multi = true;
             getBoard().newGame();
+            _frame.get_infopanel().setVisible(false);
         }
 
         Rectangle exit = new Rectangle(860, 410, 150, 45);

@@ -10,6 +10,7 @@ import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.gui.Frame;
 import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.level.Coordinates;
 
@@ -21,12 +22,14 @@ import java.util.List;
 
 import static uet.oop.bomberman.Game.soundGame;
 import static uet.oop.bomberman.SoundGame.playSoundCheck;
+import static uet.oop.bomberman.level.FileLevelLoader.is_multi;
 
 
 public class Bomber extends Character {
 
     private List<Bomb> _bombs;
     protected Keyboard _input;
+    private Frame _frame;
 
     /**
      * nếu giá trị này < 0 thì cho phép đặt đối tượng Bomb tiếp theo,
@@ -196,13 +199,24 @@ public class Bomber extends Character {
         if (!_alive) return;
         _alive = false;
 
+        _map.addLives(-1);
     }
 
     @Override
     protected void afterKill() {
         if (_timeAfter > 0) --_timeAfter;
         else {
-            _map.endGame();
+            if(_bombs.size() == 0) {
+                if(!is_multi) {
+                    if(_map.getLives() == 0) {
+                        _map.endGame();
+                    } else {
+                        _map.restartLevel();
+                    }
+                } else {
+                    _map.endGame();
+                }
+            }
         }
     }
     void AIcalculateMove() throws UnsupportedAudioFileException, LineUnavailableException, IOException {

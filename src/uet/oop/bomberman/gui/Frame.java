@@ -19,8 +19,8 @@ public class Frame extends JFrame{
         _gamepane = new GamePanel(this);
         _infopanel = new InfoPanel(_gamepane.getGame());
 
-        _containerpane.add(_infopanel, BorderLayout.NORTH);
-        _containerpane.add(_gamepane, BorderLayout.CENTER);
+        _containerpane.add(_infopanel,BorderLayout.NORTH);
+        _containerpane.add(_gamepane,BorderLayout.CENTER);
 
         _game = _gamepane.getGame();
         _infopanel.setVisible(false);
@@ -33,5 +33,17 @@ public class Frame extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
         _game.start();
+    }
+
+    public InfoPanel get_infopanel() {
+        return _infopanel;
+    }
+
+    public void setLives(int lives) {
+        _infopanel.setLives(lives);
+    }
+
+    public void setPoints(int points) {
+        _infopanel.setPoints(points);
     }
 }
