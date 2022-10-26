@@ -8,6 +8,7 @@ import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.entities.character.enemy.*;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.Portal;
+import uet.oop.bomberman.entities.tile.Tree;
 import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.item.BombItem;
@@ -86,8 +87,13 @@ public class FileLevelLoader extends LevelLoader {
 			for(int x=0;x<_width;x++){
 				switch (_map[y][x]){
 					case '#':
-						_board.addEntity(x + y * _width, new Wall(x, y, Sprite.wall));
-						break;
+						if(x == 0 || x == 30 || y == 0 || y ==12) {
+							_board.addEntity(x + y * _width, new Wall(x, y, Sprite.wall));
+							break;
+						} else {
+							_board.addEntity(x + y * _width, new Tree(x, y, Sprite.tree));
+							break;
+						}
 					case 'p' :
 						int xBomber = x, yBomber = y;
 						_board.addCharacter( new Bomber(Coordinates.tileToPixel(xBomber), Coordinates.tileToPixel(yBomber) + Game.TILES_SIZE, _board) );
@@ -110,6 +116,33 @@ public class FileLevelLoader extends LevelLoader {
 						_board.addCharacter( new Oneal(Coordinates.tileToPixel(xE2), Coordinates.tileToPixel(yE2) + Game.TILES_SIZE, _board));
 						_board.addEntity(xE2 + yE2 * _width, new Grass(xE2, yE2, Sprite.grass));
 						break;
+					case '3' :
+						int xE3= x, yE3 = y;
+						_board.addCharacter( new Doll(Coordinates.tileToPixel(xE3), Coordinates.tileToPixel(yE3) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE3 + yE3 * _width, new Grass(xE3, yE3, Sprite.grass));
+						break;
+					case '4' :
+						int xE4= x, yE4 = y;
+						_board.addCharacter( new Kondoria(Coordinates.tileToPixel(xE4), Coordinates.tileToPixel(yE4) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE4 + yE4 * _width, new Grass(xE4, yE4, Sprite.grass));
+						break;
+
+					case '5' :
+						int xE5= x, yE5 = y;
+						_board.addCharacter( new Minvo(Coordinates.tileToPixel(xE5), Coordinates.tileToPixel(yE5) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE5 + yE5 * _width, new Grass(xE5, yE5, Sprite.grass));
+						break;
+					case '6' :
+						int xE6= x, yE6 = y;
+						_board.addCharacter( new Ovape(Coordinates.tileToPixel(xE6), Coordinates.tileToPixel(yE6) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE6 + yE6 * _width, new Grass(xE6, yE6, Sprite.grass));
+						break;
+					case '7' :
+						int xE7= x, yE7 = y;
+						_board.addCharacter( new Pass(Coordinates.tileToPixel(xE7), Coordinates.tileToPixel(yE7) + Game.TILES_SIZE, _board));
+						_board.addEntity(xE7 + yE7 * _width, new Grass(xE7, yE7, Sprite.grass));
+						break;
+
 					case '*' :
 						int xB = x, yB = y;
 						_board.addEntity(xB + yB * _width,
