@@ -24,6 +24,7 @@ import static uet.oop.bomberman.SoundGame.playSoundCheck;
 
 public class Bomber2 extends Character{
     private List<Bomb2> _bombs;
+    public static boolean checkPlayer2 = true;
     protected Keyboard _input;
 
     /**
@@ -193,6 +194,7 @@ public class Bomber2 extends Character{
     public void kill() {
         if (!_alive) return;
         _alive = false;
+        checkPlayer2 = false;
     }
 
     @Override
@@ -322,4 +324,5 @@ public class Bomber2 extends Character{
                 break;
         }
     }
+
 }

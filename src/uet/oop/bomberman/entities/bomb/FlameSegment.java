@@ -1,17 +1,12 @@
 package uet.oop.bomberman.entities.bomb;
 
-import uet.oop.bomberman.entities.Entity;
-import uet.oop.bomberman.entities.character.Character;
-import uet.oop.bomberman.entities.character.enemy.Enemy;
-import uet.oop.bomberman.graphics.Screen;
-import uet.oop.bomberman.graphics.Sprite;
-
+import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
-
-import static uet.oop.bomberman.Game.soundGame;
-import static uet.oop.bomberman.SoundGame.playSoundCheck;
+import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.character.Character;
+import uet.oop.bomberman.graphics.Screen;
+import uet.oop.bomberman.graphics.Sprite;
 
 public class FlameSegment extends Entity {
     protected boolean _last;
@@ -69,11 +64,11 @@ public class FlameSegment extends Entity {
     }
 
     @Override
-    public void update() {
-    }
+    public void update() {}
 
     @Override
-    public boolean collide(Entity e) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public boolean collide(Entity e)
+            throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         // TODO: xử lý khi FlameSegment va chạm với Character
         if (e instanceof Character) {
             ((Character) e).kill();

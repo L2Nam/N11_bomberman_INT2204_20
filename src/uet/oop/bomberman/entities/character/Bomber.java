@@ -26,6 +26,7 @@ import static uet.oop.bomberman.level.FileLevelLoader.is_multi;
 
 
 public class Bomber extends Character {
+    public static boolean checkPlayer1 = true;
 
     private List<Bomb> _bombs;
     protected Keyboard _input;
@@ -52,6 +53,7 @@ public class Bomber extends Character {
     public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         clearBombs();
         if (!_alive) {
+
             afterKill();
             return;
         }

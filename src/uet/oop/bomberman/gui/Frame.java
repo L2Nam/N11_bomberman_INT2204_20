@@ -34,6 +34,9 @@ public class Frame extends JFrame{
         setVisible(true);
         _game.start();
     }
+    public void setLevels(int levels) {
+        _infopanel.setLevels(levels);
+    }
 
     public InfoPanel get_infopanel() {
         return _infopanel;

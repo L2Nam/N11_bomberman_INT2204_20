@@ -5,6 +5,7 @@ import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.bomb.Bomb2;
 import uet.oop.bomberman.entities.bomb.FlameSegment;
 import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.Bomber2;
 import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 import uet.oop.bomberman.graphics.IRender;
@@ -34,7 +35,7 @@ import static uet.oop.bomberman.level.FileLevelLoader.level_load;
  */
 public class Map implements IRender {
 	protected LevelLoader levelLoader;
-	public static int levels = 0;
+	public static int levels = 1;
 	protected Game _game;
 	protected Keyboard _input;
 	protected Keyboard _input1;
@@ -97,11 +98,9 @@ public class Map implements IRender {
 	}
 
 	public void restartLevel() {
-<<<<<<< HEAD
+
 		_points = Game.POINTS;
 
-=======
->>>>>>> 6e420da191d74bf8ad06ba41cb93116e2e21cab9
 		_game.bomberSpeed = 1.0;
 		_game.bombRadius = 1;
 		_game.bombRate = 1;
@@ -114,6 +113,8 @@ public class Map implements IRender {
 	public void nextLevel() {
 		loadLevel(levelLoader.getLevel() + 1);
 		levels += 1;
+		Map.setLevels(levels);
+
 		System.out.println(levelLoader.getLevel());
 		System.out.println(levels);
 	}
@@ -168,6 +169,7 @@ public class Map implements IRender {
 		if (level_load) {
 			loadLevel(random.nextInt(5) + 1);
 		} else {
+			levels = 1;
 			loadLevel(1);
 		}
 	}
@@ -193,6 +195,11 @@ public class Map implements IRender {
 					_screen.drawEndGame(g, _points);
 					break;
 				} else {
+					if (!Bomber2.checkPlayer2) {
+						_screen.drawPlayer1Win(g);
+					} else {
+						_screen.drawPlayer2Win(g);
+					}
 					break;
 				}
 			case 2:
@@ -440,6 +447,10 @@ public class Map implements IRender {
 	}
 
 	public int getLevels() { return levels; }
+
+	public static void setLevels(int levels) {
+		Map.levels = levels;
+	}
 
 	public void addPoints(int points) {
 		this._points += points;

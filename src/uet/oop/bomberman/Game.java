@@ -101,7 +101,6 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
     public Game(Frame frame) {
         _frame = frame;
         _frame.setTitle(TITLE);
-
         screen = new Screen(WIDTH, HEIGHT);
         _input = new Keyboard();
         _input1 = new Keyboard();
@@ -213,6 +212,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             if (System.currentTimeMillis() - timer > 1000) {
                 _frame.setPoints(_map.getPoints());
                 _frame.setLives(_map.getLives());
+                _frame.setLevels(_map.getLevels());
                 timer += 1000;
                 _frame.setTitle(TITLE);
                 updates = 0;
@@ -391,7 +391,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         }
 
         Rectangle single = new Rectangle(480, 410, 150, 45);
-        if (single.contains(e.getX(), e.getY()) && !_menu && Game_over) {
+        if (single.contains(e.getX(), e.getY()) && !_menu && Game_over ) {
             try {
                 soundGame.playSound("click.wav", playSoundCheck,0);
             } catch (LineUnavailableException ex) {
@@ -403,6 +403,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             }
             Game_over = false;
             is_multi = false;
+            level_load = false;
             getBoard().newGame();
         }
 

@@ -239,4 +239,26 @@ public class Screen {
 		drawCenteredString("HIGHSCORE: " + Game._highscore, getRealWidth(), getRealHeight() -60 + (Game.TILES_SIZE * 2) * Game.SCALE, g);
 		Game.Game_over = true;
     }
+	public void drawPlayer2Win(Graphics g) {
+		BufferedImage player2 = null;
+		try {
+			player2 = ImageIO.read(new File("res/textures/p2.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Image _gameover = player2.getScaledInstance(player2.getWidth(), player2.getHeight(), Image.SCALE_DEFAULT);
+		drawCenteredImage(player2,player2.getWidth(), player2.getHeight(), getRealWidth(), getRealHeight(), g);
+		Game.Game_over = true;
+	}
+	public void drawPlayer1Win(Graphics g) {
+		BufferedImage player1 = null;
+		try {
+			player1 = ImageIO.read(new File("res/textures/p1.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Image _gameover = player1.getScaledInstance(player1.getWidth(), player1.getHeight(), Image.SCALE_DEFAULT);
+		drawCenteredImage(player1,player1.getWidth(), player1.getHeight(), getRealWidth(), getRealHeight(), g);
+		Game.Game_over = true;
+	}
 }
