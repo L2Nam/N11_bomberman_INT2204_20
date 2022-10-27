@@ -16,14 +16,12 @@ public class SoundGame {
             clip.open(audioIn);
             clip.start();
             clip.loop(Loop);
-            System.out.println("bat");
         }
     }
     public void stopSound() {
         if (!playSoundCheck) {
             this.clip.stop();
             this.clip.close();
-            System.out.println("tat");
         }
     }
 

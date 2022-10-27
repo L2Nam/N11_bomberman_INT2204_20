@@ -97,8 +97,11 @@ public class Map implements IRender {
 	}
 
 	public void restartLevel() {
+<<<<<<< HEAD
 		_points = Game.POINTS;
 
+=======
+>>>>>>> 6e420da191d74bf8ad06ba41cb93116e2e21cab9
 		_game.bomberSpeed = 1.0;
 		_game.bombRadius = 1;
 		_game.bombRate = 1;
