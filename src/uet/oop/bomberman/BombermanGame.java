@@ -18,7 +18,6 @@ public class BombermanGame {
 
         if (isDoned) {
             intro.setVisible(false);
-            //            _scLoad.setVisible(false);
             new Frame();
         } else {
             System.out.println("Please wait a moment");
