@@ -8,26 +8,26 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Balloon extends Enemy {
 
 
-	public Balloon(int x, int y, Map map) {
-		super(x, y, map, Sprite.balloom_dead, Game.getBomberSpeed() / 2, 100);
+    public Balloon(int x, int y, Map map) {
+        super(x, y, map, Sprite.balloom_dead, Game.getBomberSpeed() / 2, 100);
 
-		_sprite = Sprite.balloom_left1;
+        _sprite = Sprite.balloom_left1;
 
-		_ai = new AILow();
-		_direction = _ai.calculateDirection();
-	}
+        _ai = new AILow();
+        _direction = _ai.calculateDirection();
+    }
 
-	@Override
-	protected void chooseSprite() {
-		switch (_direction) {
-			case 0:
-			case 1:
-				_sprite = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60);
-				break;
-			case 2:
-			case 3:
-				_sprite = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, _animate, 60);
-				break;
-		}
-	}
+    @Override
+    protected void chooseSprite() {
+        switch (_direction) {
+            case 0:
+            case 1:
+                _sprite = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60);
+                break;
+            case 2:
+            case 3:
+                _sprite = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, _animate, 60);
+                break;
+        }
+    }
 }

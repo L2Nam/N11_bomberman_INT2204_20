@@ -1,13 +1,8 @@
 package uet.oop.bomberman;
 
-import uet.oop.bomberman.entities.character.Bomber;
-import uet.oop.bomberman.entities.character.Bomber2;
-import uet.oop.bomberman.graphics.Screen;
-import uet.oop.bomberman.input.Keyboard;
-import uet.oop.bomberman.gui.Frame;
+import static uet.oop.bomberman.SoundGame.playSoundCheck;
+import static uet.oop.bomberman.level.FileLevelLoader.*;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -17,18 +12,19 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.*;
 import java.util.Random;
-
-import static uet.oop.bomberman.SoundGame.playSoundCheck;
-import static uet.oop.bomberman.level.FileLevelLoader.*;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import uet.oop.bomberman.graphics.Screen;
+import uet.oop.bomberman.gui.Frame;
+import uet.oop.bomberman.input.Keyboard;
 
 /**
  * Tạo vòng lặp cho game, lưu trữ một vài tham số cấu hình toàn cục,
  * Gọi phương thức render(), update() cho tất cả các entity
  */
 public class Game extends Canvas implements MouseListener, MouseMotionListener {
-
-
-    public static final int TILES_SIZE = 16, WIDTH = TILES_SIZE * (62 / 2), HEIGHT = 13 * TILES_SIZE;
+    public static final int TILES_SIZE = 16, WIDTH = TILES_SIZE * (62 / 2),
+            HEIGHT = 13 * TILES_SIZE;
 
     public static int SCALE = 3;
 
@@ -97,7 +93,6 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         }
     }
 
-
     public Game(Frame frame) {
         _frame = frame;
         _frame.setTitle(TITLE);
@@ -110,7 +105,6 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         addMouseListener(this);
         addMouseMotionListener(this);
     }
-
 
     private void renderGame() {
         BufferStrategy bs = getBufferStrategy();
@@ -152,26 +146,27 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         bs.show();
     }
 
-    private void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    private void update()
+            throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         _input.update();
         _input1.update1();
         _map.update();
     }
 
-    public void start() throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
+    public void start() throws UnsupportedAudioFileException, LineUnavailableException, IOException,
+            FontFormatException {
         readHighscore();
-        soundGame.playSound("Stage.wav", playSoundCheck,0);
+        soundGame.playSound("Stage.wav", playSoundCheck, 0);
         while (_menu) {
             renderScreen();
         }
         //_map.loadLevel(1);
         if (level_load) {
-            _map.loadLevel(random.nextInt(5)+1);
+            _map.loadLevel(random.nextInt(5) + 1);
 
             level_load = false;
         } else {
             _map.loadLevel(1);
-
         }
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();
@@ -190,8 +185,8 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
                 updates++;
                 delta--;
             }
-            if(!is_multi) {
-                if(!_paused) {
+            if (!is_multi) {
+                if (!_paused) {
                     _frame.get_infopanel().setVisible(true);
                 } else {
                     _frame.get_infopanel().setVisible(isEndgame);
@@ -206,7 +201,6 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             } else {
                 renderGame();
             }
-
 
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
@@ -306,7 +300,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             _menu = false;
             _running = true;
             try {
-                soundGame.playSound("click.wav", playSoundCheck,0);
+                soundGame.playSound("click.wav", playSoundCheck, 0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -314,7 +308,6 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             } catch (UnsupportedAudioFileException ex) {
                 throw new RuntimeException(ex);
             }
-
         }
 
         Rectangle multiButton = new Rectangle(156, 205, 230, 70);
@@ -325,7 +318,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             Game_over = false;
             level_load = true;
             try {
-                soundGame.playSound("click.wav", playSoundCheck,0);
+                soundGame.playSound("click.wav", playSoundCheck, 0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -344,7 +337,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
                 getBoard().setShow(4);
             }
             try {
-                soundGame.playSound("click.wav", playSoundCheck,0);
+                soundGame.playSound("click.wav", playSoundCheck, 0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -358,7 +351,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         if (exitButton.contains(e.getX(), e.getY()) && _menu) {
             _menu = false;
             try {
-                soundGame.playSound("click.wav", playSoundCheck,0);
+                soundGame.playSound("click.wav", playSoundCheck, 0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -369,13 +362,13 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
             System.exit(0);
         }
 
-        Rectangle sound = new Rectangle(1398,22,95,38);
-        if (sound.contains(e.getX(), e.getY() ) && _menu) {
+        Rectangle sound = new Rectangle(1398, 22, 95, 38);
+        if (sound.contains(e.getX(), e.getY()) && _menu) {
             playSoundCheck = !playSoundCheck;
             if (playSoundCheck) {
                 getBoard().setShow(6);
                 try {
-                    soundGame.playSound("Stage.wav", playSoundCheck,0);
+                    soundGame.playSound("Stage.wav", playSoundCheck, 0);
                 } catch (LineUnavailableException ex) {
                     throw new RuntimeException(ex);
                 } catch (IOException ex) {
@@ -387,13 +380,12 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
                 getBoard().setShow(7);
                 soundGame.stopSound();
             }
-
         }
 
         Rectangle single = new Rectangle(480, 410, 150, 45);
-        if (single.contains(e.getX(), e.getY()) && !_menu && Game_over ) {
+        if (single.contains(e.getX(), e.getY()) && !_menu && Game_over) {
             try {
-                soundGame.playSound("click.wav", playSoundCheck,0);
+                soundGame.playSound("click.wav", playSoundCheck, 0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -410,7 +402,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         Rectangle multi = new Rectangle(670, 410, 150, 45);
         if (multi.contains(e.getX(), e.getY()) && !_menu && Game_over) {
             try {
-                soundGame.playSound("click.wav", playSoundCheck,0);
+                soundGame.playSound("click.wav", playSoundCheck, 0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -429,7 +421,7 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         if (exit.contains(e.getX(), e.getY()) && !_menu && Game_over) {
             _menu = false;
             try {
-                soundGame.playSound("click.wav", playSoundCheck,0);
+                soundGame.playSound("click.wav", playSoundCheck, 0);
             } catch (LineUnavailableException ex) {
                 throw new RuntimeException(ex);
             } catch (IOException ex) {
@@ -441,7 +433,6 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         }
     }
 
-
     @Override
     public void mouseMoved(MouseEvent e) {
         Rectangle singleButton = new Rectangle(156, 85, 230, 70);
@@ -449,7 +440,10 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         Rectangle optionButton = new Rectangle(156, 325, 230, 70);
         Rectangle exitButton = new Rectangle(156, 445, 230, 70);
         if (_menu) {
-            if (singleButton.contains(e.getX(), e.getY()) || multiButton.contains(e.getX(), e.getY()) || optionButton.contains(e.getX(), e.getY()) || exitButton.contains(e.getX(), e.getY())) {
+            if (singleButton.contains(e.getX(), e.getY())
+                    || multiButton.contains(e.getX(), e.getY())
+                    || optionButton.contains(e.getX(), e.getY())
+                    || exitButton.contains(e.getX(), e.getY())) {
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             } else {
                 setCursor(Cursor.getDefaultCursor());
@@ -457,31 +451,20 @@ public class Game extends Canvas implements MouseListener, MouseMotionListener {
         }
     }
 
+    @Override
+    public void mousePressed(MouseEvent e) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
+    public void mouseExited(MouseEvent e) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
+    public void mouseDragged(MouseEvent e) {}
 
     public void set_highscore(int points) {
         _highscore = points;

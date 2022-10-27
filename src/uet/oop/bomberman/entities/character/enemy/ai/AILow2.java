@@ -12,12 +12,13 @@ public class AILow2 extends AI {
         _e = e;
     }
 
-
     @Override
     public int calculateDirection() {
         int v = random.nextInt(3);
-        if(v == 0) return calculateLeftDirection();
-        else if(v==1) return calculateRightDirection();
+        if (v == 0)
+            return calculateLeftDirection();
+        else if (v == 1)
+            return calculateRightDirection();
         else
             return random.nextInt(4);
     }

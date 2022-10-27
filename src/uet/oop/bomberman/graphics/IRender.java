@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public interface IRender {
 
-	void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
-	
-	void render(Screen screen);
+    void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException;
+
+    void render(Screen screen);
 }

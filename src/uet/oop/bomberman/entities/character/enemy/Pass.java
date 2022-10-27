@@ -5,15 +5,14 @@ import uet.oop.bomberman.Map;
 import uet.oop.bomberman.entities.character.enemy.ai.AIMedium2;
 import uet.oop.bomberman.graphics.Sprite;
 
-public class Pass extends Enemy{
-
+public class Pass extends Enemy {
     public Pass(int x, int y, Map board) {
         super(x, y, board, Sprite.pass_dead, Game.getBomberSpeed() * 1.5, 4000);
 
         _sprite = Sprite.pass_right1;
 
-        _ai = new AIMedium2(board.getBomber(), this, board); //TODO: implement AIHigh
-        _direction  = _ai.calculateDirection();
+        _ai = new AIMedium2(board.getBomber(), this, board); // TODO: implement AIHigh
+        _direction = _ai.calculateDirection();
     }
 
     @Override
@@ -22,14 +21,16 @@ public class Pass extends Enemy{
             case 0:
             case 1:
                 if (_moving)
-                    _sprite = Sprite.movingSprite(Sprite.pass_right1, Sprite.pass_right2, Sprite.pass_right3, _animate, 60);
+                    _sprite = Sprite.movingSprite(
+                            Sprite.pass_right1, Sprite.pass_right2, Sprite.pass_right3, _animate, 60);
                 else
                     _sprite = Sprite.pass_left1;
                 break;
             case 2:
             case 3:
                 if (_moving)
-                    _sprite = Sprite.movingSprite(Sprite.pass_left1, Sprite.pass_left2, Sprite.pass_left3, _animate, 60);
+                    _sprite = Sprite.movingSprite(
+                            Sprite.pass_left1, Sprite.pass_left2, Sprite.pass_left3, _animate, 60);
                 else
                     _sprite = Sprite.pass_left1;
                 break;

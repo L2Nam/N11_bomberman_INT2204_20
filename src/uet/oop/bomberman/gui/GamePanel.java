@@ -1,15 +1,13 @@
 package uet.oop.bomberman.gui;
 
-import uet.oop.bomberman.Game;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import uet.oop.bomberman.Game;
 
 /**
  * Swing Panel chứa cảnh game
  */
 public class GamePanel extends JPanel {
-
 	private Game _game;
 
 	public GamePanel(Frame frame) {
@@ -24,11 +22,9 @@ public class GamePanel extends JPanel {
 
 		setVisible(true);
 		setFocusable(true);
-
 	}
 
 	public Game getGame() {
 		return _game;
 	}
-
 }

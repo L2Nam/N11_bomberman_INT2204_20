@@ -7,7 +7,6 @@ import uet.oop.bomberman.exceptions.LoadLevelException;
  * Load và lưu trữ thông tin bản đồ các màn chơi
  */
 public abstract class LevelLoader {
-
 	protected int _width = 31, _height = 13; // default values just for testing
 	protected int _level;
 	protected Map _board;
@@ -32,5 +31,4 @@ public abstract class LevelLoader {
 	public int getLevel() {
 		return _level;
 	}
-
 }

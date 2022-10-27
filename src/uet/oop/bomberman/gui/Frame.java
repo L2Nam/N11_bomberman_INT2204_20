@@ -1,26 +1,26 @@
 package uet.oop.bomberman.gui;
 
-import uet.oop.bomberman.Game;
-
+import java.awt.*;
+import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
+import uet.oop.bomberman.Game;
 
-public class Frame extends JFrame{
+public class Frame extends JFrame {
     public GamePanel _gamepane;
     private JPanel _containerpane;
     private InfoPanel _infopanel;
     private Game _game;
 
-    public Frame() throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
+    public Frame() throws UnsupportedAudioFileException, LineUnavailableException, IOException,
+            FontFormatException {
         _containerpane = new JPanel(new BorderLayout());
         _gamepane = new GamePanel(this);
         _infopanel = new InfoPanel(_gamepane.getGame());
 
-        _containerpane.add(_infopanel,BorderLayout.NORTH);
-        _containerpane.add(_gamepane,BorderLayout.CENTER);
+        _containerpane.add(_infopanel, BorderLayout.NORTH);
+        _containerpane.add(_gamepane, BorderLayout.CENTER);
 
         _game = _gamepane.getGame();
         _infopanel.setVisible(false);

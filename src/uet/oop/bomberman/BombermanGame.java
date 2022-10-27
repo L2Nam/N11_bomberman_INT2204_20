@@ -1,27 +1,26 @@
 package uet.oop.bomberman;
 
+import static uet.oop.bomberman.ProgressBar.isDoned;
 
-import uet.oop.bomberman.gui.Frame;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.IOException;
-
-import static uet.oop.bomberman.ProgressBar.isDoned;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import uet.oop.bomberman.gui.Frame;
 public class BombermanGame {
-    public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException, FontFormatException {
+    public static void main(String[] args) throws UnsupportedAudioFileException,
+            LineUnavailableException, IOException,
+            FontFormatException {
         ProgressBar intro = new ProgressBar();
         intro.setVisible(true);
         intro.setLocationRelativeTo(null);
         intro.iterate();
 
-        if(isDoned) {
+        if (isDoned) {
             intro.setVisible(false);
-//            _scLoad.setVisible(false);
+            //            _scLoad.setVisible(false);
             new Frame();
-        }
-        else {
+        } else {
             System.out.println("Please wait a moment");
         }
     }

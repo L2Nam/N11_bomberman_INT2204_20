@@ -4,7 +4,6 @@ package uet.oop.bomberman.graphics;
  * Lưu trữ thông tin các pixel của 1 sprite (hình ảnh game)
  */
 public class Sprite {
-
     public final int SIZE;
     private int _x, _y;
     public int[] _pixels;
@@ -17,10 +16,14 @@ public class Sprite {
     | Map sprites
     |--------------------------------------------------------------------------
      */
-    public static Sprite grass = new Sprite(16, 0, 0, new SpriteSheet("/sprites/grass.png", 16), 16, 16);
-    public static Sprite brick = new Sprite(16, 0, 0, new SpriteSheet("/sprites/brick.png", 16), 16, 16);
-    public static Sprite wall = new Sprite(16, 0, 0, new SpriteSheet("/sprites/stone.png", 16), 16, 16);
-    public static Sprite tree = new Sprite(16, 0, 0, new SpriteSheet("/sprites/tree.png", 16), 16, 16);
+    public static Sprite grass =
+            new Sprite(16, 0, 0, new SpriteSheet("/sprites/grass.png", 16), 16, 16);
+    public static Sprite brick =
+            new Sprite(16, 0, 0, new SpriteSheet("/sprites/brick.png", 16), 16, 16);
+    public static Sprite wall =
+            new Sprite(16, 0, 0, new SpriteSheet("/sprites/stone.png", 16), 16, 16);
+    public static Sprite tree =
+            new Sprite(16, 0, 0, new SpriteSheet("/sprites/tree.png", 16), 16, 16);
 
     public static Sprite portal = new Sprite(16, 4, 0, SpriteSheet.tiles, 14, 14);
 
@@ -76,7 +79,7 @@ public class Sprite {
     | Character
     |--------------------------------------------------------------------------
      */
-    //BALLOM
+    // BALLOM
     public static Sprite balloom_left1 = new Sprite(16, 9, 0, SpriteSheet.tiles, 16, 16);
     public static Sprite balloom_left2 = new Sprite(16, 9, 1, SpriteSheet.tiles, 16, 16);
     public static Sprite balloom_left3 = new Sprite(16, 9, 2, SpriteSheet.tiles, 16, 16);
@@ -87,7 +90,7 @@ public class Sprite {
 
     public static Sprite balloom_dead = new Sprite(16, 9, 3, SpriteSheet.tiles, 16, 16);
 
-    //ONEAL
+    // ONEAL
     public static Sprite oneal_left1 = new Sprite(16, 11, 0, SpriteSheet.tiles, 16, 16);
     public static Sprite oneal_left2 = new Sprite(16, 11, 1, SpriteSheet.tiles, 16, 16);
     public static Sprite oneal_left3 = new Sprite(16, 11, 2, SpriteSheet.tiles, 16, 16);
@@ -98,7 +101,7 @@ public class Sprite {
 
     public static Sprite oneal_dead = new Sprite(16, 11, 3, SpriteSheet.tiles, 16, 16);
 
-    //Doll
+    // Doll
     public static Sprite doll_left1 = new Sprite(16, 13, 0, SpriteSheet.tiles, 16, 16);
     public static Sprite doll_left2 = new Sprite(16, 13, 1, SpriteSheet.tiles, 16, 16);
     public static Sprite doll_left3 = new Sprite(16, 13, 2, SpriteSheet.tiles, 16, 16);
@@ -109,7 +112,7 @@ public class Sprite {
 
     public static Sprite doll_dead = new Sprite(16, 13, 3, SpriteSheet.tiles, 16, 16);
 
-    //Minvo
+    // Minvo
     public static Sprite minvo_left1 = new Sprite(16, 8, 5, SpriteSheet.tiles, 16, 16);
     public static Sprite minvo_left2 = new Sprite(16, 8, 6, SpriteSheet.tiles, 16, 16);
     public static Sprite minvo_left3 = new Sprite(16, 8, 7, SpriteSheet.tiles, 16, 16);
@@ -120,7 +123,7 @@ public class Sprite {
 
     public static Sprite minvo_dead = new Sprite(16, 8, 8, SpriteSheet.tiles, 16, 16);
 
-    //Kondoria
+    // Kondoria
     public static Sprite kondoria_left1 = new Sprite(16, 10, 5, SpriteSheet.tiles, 16, 16);
     public static Sprite kondoria_left2 = new Sprite(16, 10, 6, SpriteSheet.tiles, 16, 16);
     public static Sprite kondoria_left3 = new Sprite(16, 10, 7, SpriteSheet.tiles, 16, 16);
@@ -131,7 +134,7 @@ public class Sprite {
 
     public static Sprite kondoria_dead = new Sprite(16, 10, 8, SpriteSheet.tiles, 16, 16);
 
-    //Ovape
+    // Ovape
     public static Sprite ovape_left1 = new Sprite(16, 6, 5, SpriteSheet.tiles, 16, 16);
     public static Sprite ovape_left2 = new Sprite(16, 6, 6, SpriteSheet.tiles, 16, 16);
     public static Sprite ovape_left3 = new Sprite(16, 6, 7, SpriteSheet.tiles, 16, 16);
@@ -142,7 +145,7 @@ public class Sprite {
 
     public static Sprite ovape_dead = new Sprite(16, 6, 8, SpriteSheet.tiles, 16, 16);
 
-    //Pass
+    // Pass
     public static Sprite pass_left1 = new Sprite(16, 4, 5, SpriteSheet.tiles, 16, 16);
     public static Sprite pass_left2 = new Sprite(16, 4, 6, SpriteSheet.tiles, 16, 16);
     public static Sprite pass_left3 = new Sprite(16, 4, 7, SpriteSheet.tiles, 16, 16);
@@ -153,7 +156,7 @@ public class Sprite {
 
     public static Sprite pass_dead = new Sprite(16, 4, 8, SpriteSheet.tiles, 16, 16);
 
-    //ALL
+    // ALL
     public static Sprite mob_dead1 = new Sprite(16, 15, 0, SpriteSheet.tiles, 16, 16);
     public static Sprite mob_dead2 = new Sprite(16, 15, 1, SpriteSheet.tiles, 16, 16);
     public static Sprite mob_dead3 = new Sprite(16, 15, 2, SpriteSheet.tiles, 16, 16);
@@ -184,21 +187,33 @@ public class Sprite {
     public static Sprite explosion_horizontal1 = new Sprite(16, 1, 8, SpriteSheet.tiles, 16, 16);
     public static Sprite explosion_horizontal2 = new Sprite(16, 1, 9, SpriteSheet.tiles, 16, 16);
 
-    public static Sprite explosion_horizontal_left_last = new Sprite(16, 0, 7, SpriteSheet.tiles, 16, 16);
-    public static Sprite explosion_horizontal_left_last1 = new Sprite(16, 0, 8, SpriteSheet.tiles, 16, 16);
-    public static Sprite explosion_horizontal_left_last2 = new Sprite(16, 0, 9, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_horizontal_left_last =
+            new Sprite(16, 0, 7, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_horizontal_left_last1 =
+            new Sprite(16, 0, 8, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_horizontal_left_last2 =
+            new Sprite(16, 0, 9, SpriteSheet.tiles, 16, 16);
 
-    public static Sprite explosion_horizontal_right_last = new Sprite(16, 2, 7, SpriteSheet.tiles, 16, 16);
-    public static Sprite explosion_horizontal_right_last1 = new Sprite(16, 2, 8, SpriteSheet.tiles, 16, 16);
-    public static Sprite explosion_horizontal_right_last2 = new Sprite(16, 2, 9, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_horizontal_right_last =
+            new Sprite(16, 2, 7, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_horizontal_right_last1 =
+            new Sprite(16, 2, 8, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_horizontal_right_last2 =
+            new Sprite(16, 2, 9, SpriteSheet.tiles, 16, 16);
 
-    public static Sprite explosion_vertical_top_last = new Sprite(16, 1, 4, SpriteSheet.tiles, 16, 16);
-    public static Sprite explosion_vertical_top_last1 = new Sprite(16, 2, 4, SpriteSheet.tiles, 16, 16);
-    public static Sprite explosion_vertical_top_last2 = new Sprite(16, 3, 4, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_vertical_top_last =
+            new Sprite(16, 1, 4, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_vertical_top_last1 =
+            new Sprite(16, 2, 4, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_vertical_top_last2 =
+            new Sprite(16, 3, 4, SpriteSheet.tiles, 16, 16);
 
-    public static Sprite explosion_vertical_down_last = new Sprite(16, 1, 6, SpriteSheet.tiles, 16, 16);
-    public static Sprite explosion_vertical_down_last1 = new Sprite(16, 2, 6, SpriteSheet.tiles, 16, 16);
-    public static Sprite explosion_vertical_down_last2 = new Sprite(16, 3, 6, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_vertical_down_last =
+            new Sprite(16, 1, 6, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_vertical_down_last1 =
+            new Sprite(16, 2, 6, SpriteSheet.tiles, 16, 16);
+    public static Sprite explosion_vertical_down_last2 =
+            new Sprite(16, 3, 6, SpriteSheet.tiles, 16, 16);
 
     /*
     |--------------------------------------------------------------------------
@@ -214,9 +229,12 @@ public class Sprite {
     | Powerups
     |--------------------------------------------------------------------------
      */
-    public static Sprite powerup_bombs = new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_bombs.png", 16), 16, 16);
-    public static Sprite powerup_flames = new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_flames.png", 16), 16, 16);
-    public static Sprite powerup_speed = new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_speed.png", 16), 16, 16);
+    public static Sprite powerup_bombs =
+            new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_bombs.png", 16), 16, 16);
+    public static Sprite powerup_flames =
+            new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_flames.png", 16), 16, 16);
+    public static Sprite powerup_speed =
+            new Sprite(16, 0, 0, new SpriteSheet("/sprites/ipowerup_speed.png", 16), 16, 16);
     public static Sprite powerup_wallpass = new Sprite(16, 3, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite powerup_detonator = new Sprite(16, 4, 10, SpriteSheet.tiles, 16, 16);
     public static Sprite powerup_bombpass = new Sprite(16, 5, 10, SpriteSheet.tiles, 16, 16);
@@ -280,5 +298,4 @@ public class Sprite {
     public int getPixel(int i) {
         return _pixels[i];
     }
-
 }

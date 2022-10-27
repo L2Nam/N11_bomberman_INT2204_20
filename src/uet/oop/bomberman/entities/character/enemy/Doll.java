@@ -7,7 +7,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Doll extends Enemy {
     public Doll(int x, int y, Map board) {
-        super(x, y, board, Sprite.doll_dead, Game.getBomberSpeed()/2, 400);
+        super(x, y, board, Sprite.doll_dead, Game.getBomberSpeed() / 2, 400);
 
         _sprite = Sprite.doll_right1;
 

@@ -7,11 +7,10 @@ import java.awt.event.KeyListener;
  * Tiếp nhận và xử lý các sự kiện nhập từ bàn phím
  */
 public class Keyboard implements KeyListener {
-	
-	private boolean[] keys = new boolean[120]; //120 is enough to this game
+	private boolean[] keys = new boolean[120]; // 120 is enough to this game
 	public boolean up, down, left, right, space;
 	public boolean up1, down1, left1, right1, enter;
-	
+
 	public void update() {
 		up = keys[KeyEvent.VK_W];
 		down = keys[KeyEvent.VK_S];
@@ -34,13 +33,10 @@ public class Keyboard implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
-		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		keys[e.getKeyCode()] = false;
-		
 	}
-
 }

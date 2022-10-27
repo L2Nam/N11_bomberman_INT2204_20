@@ -1,14 +1,15 @@
 package uet.oop.bomberman;
 
-import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import javax.sound.sampled.*;
 
 public class SoundGame {
     private Clip clip = null;
 
     public static boolean playSoundCheck = true;
-    public void playSound(String soundFile, boolean playSoundCheck, int Loop) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public void playSound(String soundFile, boolean playSoundCheck, int Loop)
+            throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         if (playSoundCheck) {
             File f = new File(soundFile);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
@@ -24,6 +25,4 @@ public class SoundGame {
             this.clip.close();
         }
     }
-
-
 }

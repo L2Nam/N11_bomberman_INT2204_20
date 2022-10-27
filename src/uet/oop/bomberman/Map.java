@@ -1,5 +1,16 @@
 package uet.oop.bomberman;
 
+import static uet.oop.bomberman.level.FileLevelLoader.is_multi;
+import static uet.oop.bomberman.level.FileLevelLoader.level_load;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.bomb.Bomb2;
@@ -14,22 +25,6 @@ import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.level.FileLevelLoader;
 import uet.oop.bomberman.level.LevelLoader;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
-import static uet.oop.bomberman.level.FileLevelLoader.is_multi;
-import static uet.oop.bomberman.level.FileLevelLoader.level_load;
-
-
 /**
  * Quản lý thao tác điều khiển, load level, render các màn hình của game
  */
@@ -41,18 +36,18 @@ public class Map implements IRender {
 	protected Keyboard _input1;
 	protected Screen _screen;
 	Random random = new Random();
-	
+
 	public Entity[] _entities;
 	public List<Character> _characters = new ArrayList<>();
 	protected List<Bomb> _bombs = new ArrayList<>();
 	protected List<Bomb2> _bombs2 = new ArrayList<>();
 
-	public static int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
-	
+	public static int _screenToShow = -1; // 1:endgame, 2:changelevel, 3:paused
+
 	private int _time = Game.TIME;
 	private int _points = Game.POINTS;
 	private int _lives = Game.LIVES;
-	
+
 	public Map(Game game, Keyboard input, Keyboard input1, Screen screen) {
 		_game = game;
 		_input = input;
@@ -60,45 +55,46 @@ public class Map implements IRender {
 		_input1 = input1;
 
 		_screenToShow = 4;
-
 	}
-	
+
 	@Override
-	public void update() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-		if( _game.isPaused() ) return;
-		
+	public void update()
+			throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+		if (_game.isPaused())
+			return;
+
 		updateEntities();
 		updateCharacters();
 		updateBombs();
 		updateBombs2();
 		detectEndGame();
-		
+
 		for (int i = 0; i < _characters.size(); i++) {
 			Character a = _characters.get(i);
-			if(a.isRemoved()) _characters.remove(i);
+			if (a.isRemoved())
+				_characters.remove(i);
 		}
 	}
 
 	@Override
 	public void render(Screen screen) {
-		if( _game.isPaused() ) return;
+		if (_game.isPaused())
+			return;
 
-		int x0 = 0,x1 = 31, y0 = 0, y1 = 13;
+		int x0 = 0, x1 = 31, y0 = 0, y1 = 13;
 
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1; x++) {
 				_entities[x + y * levelLoader.getWidth()].render(screen);
 			}
 		}
-		
+
 		renderBombs(screen);
 		renderBombs2(screen);
 		renderCharacter(screen);
-		
 	}
 
 	public void restartLevel() {
-
 		_points = Game.POINTS;
 
 		_game.bomberSpeed = 1.0;
@@ -118,7 +114,7 @@ public class Map implements IRender {
 		System.out.println(levelLoader.getLevel());
 		System.out.println(levels);
 	}
-	
+
 	public void loadLevel(int level) {
 		_screenToShow = 2;
 		_game.resetScreenDelay();
@@ -130,37 +126,36 @@ public class Map implements IRender {
 			levelLoader = new FileLevelLoader(this, level);
 
 			_entities = new Entity[levelLoader.getHeight() * levelLoader.getWidth()];
-			
+
 			levelLoader.createEntities();
 		} catch (LoadLevelException e) {
 			endGame();
 		}
-
 	}
-	
+
 	protected void detectEndGame() {
-		if(_time <= 0)
+		if (_time <= 0)
 			endGame();
 	}
-	
+
 	public void endGame() {
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
 		_game.isEndgame = true;
-		if(getPoints() >= _game.get_highscore()){
+		if (getPoints() >= _game.get_highscore()) {
 			_game.set_highscore(getPoints());
 			_game.saveHighScore();
 		}
 	}
-	
+
 	public boolean detectNoEnemies() {
 		int total = 0;
 		for (int i = 0; i < _characters.size(); i++) {
-			if(_characters.get(i) instanceof Bomber == false)
+			if (_characters.get(i) instanceof Bomber == false)
 				++total;
 		}
-		
+
 		return total == 0;
 	}
 
@@ -185,13 +180,12 @@ public class Map implements IRender {
 		_game.bomberSpeed2 = 1.0;
 		_game.bombRadius2 = 1;
 		_game.bombRate2 = 1;
-
 	}
 	public void drawScreen(Graphics g) throws IOException, FontFormatException {
 		_screen.intializeFont();
 		switch (_screenToShow) {
 			case 1:
-				if(!is_multi) {
+				if (!is_multi) {
 					_screen.drawEndGame(g, _points);
 					break;
 				} else {
@@ -222,31 +216,35 @@ public class Map implements IRender {
 				break;
 		}
 	}
-	
-	public Entity getEntity(double x, double y, Character m) {
-		
-		Entity res = null;
-		
-		res = getFlameSegmentAt((int)x, (int)y);
-		if( res != null) return res;
 
-		res = getFlameSegmentAt2((int)x, (int)y);
-		if( res != null) return res;
-		
+	public Entity getEntity(double x, double y, Character m) {
+		Entity res = null;
+
+		res = getFlameSegmentAt((int) x, (int) y);
+		if (res != null)
+			return res;
+
+		res = getFlameSegmentAt2((int) x, (int) y);
+		if (res != null)
+			return res;
+
 		res = getBombAt(x, y);
-		if( res != null) return res;
+		if (res != null)
+			return res;
 
 		res = getBombAt2(x, y);
-		if( res != null) return res;
-		
-		res = getCharacterAtExcluding((int)x, (int)y, m);
-		if( res != null) return res;
-		
-		res = getEntityAt((int)x, (int)y);
-		
+		if (res != null)
+			return res;
+
+		res = getCharacterAtExcluding((int) x, (int) y, m);
+		if (res != null)
+			return res;
+
+		res = getEntityAt((int) x, (int) y);
+
 		return res;
 	}
-	
+
 	public List<Bomb> getBombs() {
 		return _bombs;
 	}
@@ -254,106 +252,105 @@ public class Map implements IRender {
 	public List<Bomb2> getBombs2() {
 		return _bombs2;
 	}
-	
+
 	public Bomb getBombAt(double x, double y) {
 		Iterator<Bomb> bs = _bombs.iterator();
 		Bomb b;
-		while(bs.hasNext()) {
+		while (bs.hasNext()) {
 			b = bs.next();
-			if(b.getX() == (int)x && b.getY() == (int)y)
+			if (b.getX() == (int) x && b.getY() == (int) y)
 				return b;
 		}
-		
+
 		return null;
 	}
 
 	public Bomb2 getBombAt2(double x, double y) {
 		Iterator<Bomb2> bs = _bombs2.iterator();
 		Bomb2 b;
-		while(bs.hasNext()) {
+		while (bs.hasNext()) {
 			b = bs.next();
-			if(b.getX() == (int)x && b.getY() == (int)y)
+			if (b.getX() == (int) x && b.getY() == (int) y)
 				return b;
 		}
-		
+
 		return null;
 	}
 
 	public Bomber getBomber() {
 		Iterator<Character> itr = _characters.iterator();
-		
+
 		Character cur;
-		while(itr.hasNext()) {
+		while (itr.hasNext()) {
 			cur = itr.next();
-			
-			if(cur instanceof Bomber)
+
+			if (cur instanceof Bomber)
 				return (Bomber) cur;
 		}
-		
+
 		return null;
 	}
-	
+
 	public Character getCharacterAtExcluding(int x, int y, Character a) {
 		Iterator<Character> itr = _characters.iterator();
-		
+
 		Character cur;
-		while(itr.hasNext()) {
+		while (itr.hasNext()) {
 			cur = itr.next();
-			if(cur == a) {
+			if (cur == a) {
 				continue;
 			}
-			
-			if(cur.getXTile() == x && cur.getYTile() == y) {
+
+			if (cur.getXTile() == x && cur.getYTile() == y) {
 				return cur;
 			}
-				
 		}
-		
+
 		return null;
 	}
-	
+
 	public FlameSegment getFlameSegmentAt(int x, int y) {
 		Iterator<Bomb> bs = _bombs.iterator();
 		Bomb b;
-		while(bs.hasNext()) {
+		while (bs.hasNext()) {
 			b = bs.next();
-			
+
 			FlameSegment e = b.flameAt(x, y);
-			if(e != null) {
+			if (e != null) {
 				return e;
 			}
 		}
-		
+
 		return null;
 	}
 
 	public FlameSegment getFlameSegmentAt2(int x, int y) {
 		Iterator<Bomb2> bs = _bombs2.iterator();
 		Bomb2 b;
-		while(bs.hasNext()) {
+		while (bs.hasNext()) {
 			b = bs.next();
 
 			FlameSegment e = b.flameAt(x, y);
-			if(e != null) {
+			if (e != null) {
 				return e;
 			}
 		}
 
 		return null;
 	}
-	
+
 	public Entity getEntityAt(double x, double y) {
-		return _entities[(int)x + (int)y * levelLoader.getWidth()];
+		return _entities[(int) x + (int) y * levelLoader.getWidth()];
 	}
-	
+
 	public void addEntity(int pos, Entity e) {
 		_entities[pos] = e;
 	}
-	
+
 	public void addCharacter(Character e) {
 		_characters.add(e);
 	}
-	
+
 	public void addBomb(Bomb e) {
 		_bombs.add(e);
 	}
@@ -365,53 +362,55 @@ public class Map implements IRender {
 	protected void renderCharacter(Screen screen) {
 		Iterator<Character> itr = _characters.iterator();
 
-		while(itr.hasNext())
-			itr.next().render(screen);
+		while (itr.hasNext()) itr.next().render(screen);
 	}
-	
+
 	protected void renderBombs(Screen screen) {
 		Iterator<Bomb> itr = _bombs.iterator();
-		
-		while(itr.hasNext())
-			itr.next().render(screen);
+
+		while (itr.hasNext()) itr.next().render(screen);
 	}
 
 	protected void renderBombs2(Screen screen) {
 		Iterator<Bomb2> itr = _bombs2.iterator();
-		
-		while(itr.hasNext())
-			itr.next().render(screen);
+
+		while (itr.hasNext()) itr.next().render(screen);
 	}
 
-	protected void updateEntities() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-		if( _game.isPaused() ) return;
+	protected void updateEntities()
+			throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+		if (_game.isPaused())
+			return;
 		for (int i = 0; i < _entities.length; i++) {
 			_entities[i].update();
 		}
 	}
-	
-	protected void updateCharacters() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-		if( _game.isPaused() ) return;
+
+	protected void updateCharacters()
+			throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+		if (_game.isPaused())
+			return;
 		Iterator<Character> itr = _characters.iterator();
-		
-		while(itr.hasNext() && !_game.isPaused())
-			itr.next().update();
-	}
-	
-	protected void updateBombs() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-		if( _game.isPaused() ) return;
-		Iterator<Bomb> itr = _bombs.iterator();
-		
-		while(itr.hasNext())
-			itr.next().update();
+
+		while (itr.hasNext() && !_game.isPaused()) itr.next().update();
 	}
 
-	protected void updateBombs2() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-		if( _game.isPaused() ) return;
+	protected void updateBombs()
+			throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+		if (_game.isPaused())
+			return;
+		Iterator<Bomb> itr = _bombs.iterator();
+
+		while (itr.hasNext()) itr.next().update();
+	}
+
+	protected void updateBombs2()
+			throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+		if (_game.isPaused())
+			return;
 		Iterator<Bomb2> itr = _bombs2.iterator();
-		
-		while(itr.hasNext())
-			itr.next().update();
+
+		while (itr.hasNext()) itr.next().update();
 	}
 
 	public Keyboard getInput() {
@@ -446,7 +445,9 @@ public class Map implements IRender {
 		return _lives;
 	}
 
-	public int getLevels() { return levels; }
+	public int getLevels() {
+		return levels;
+	}
 
 	public static void setLevels(int levels) {
 		Map.levels = levels;
@@ -459,7 +460,7 @@ public class Map implements IRender {
 	public void addLives(int lives) {
 		this._lives += lives;
 	}
-	
+
 	public int getWidth() {
 		return levelLoader.getWidth();
 	}
@@ -467,5 +468,4 @@ public class Map implements IRender {
 	public int getHeight() {
 		return levelLoader.getHeight();
 	}
-	
 }

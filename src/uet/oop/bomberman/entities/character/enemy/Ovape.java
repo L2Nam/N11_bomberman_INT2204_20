@@ -11,8 +11,8 @@ public class Ovape extends Enemy {
 
         _sprite = Sprite.ovape_right1;
 
-        _ai = new AIMedium2(board.getBomber(), this, board); //TODO: implement AIHigh
-        _direction  = _ai.calculateDirection();
+        _ai = new AIMedium2(board.getBomber(), this, board); // TODO: implement AIHigh
+        _direction = _ai.calculateDirection();
     }
 
     @Override
@@ -21,14 +21,16 @@ public class Ovape extends Enemy {
             case 0:
             case 1:
                 if (_moving)
-                    _sprite = Sprite.movingSprite(Sprite.ovape_right1, Sprite.ovape_right2, Sprite.ovape_right3, _animate, 60);
+                    _sprite = Sprite.movingSprite(Sprite.ovape_right1, Sprite.ovape_right2,
+                            Sprite.ovape_right3, _animate, 60);
                 else
                     _sprite = Sprite.ovape_left1;
                 break;
             case 2:
             case 3:
                 if (_moving)
-                    _sprite = Sprite.movingSprite(Sprite.ovape_left1, Sprite.ovape_left2, Sprite.ovape_left3, _animate, 60);
+                    _sprite = Sprite.movingSprite(
+                            Sprite.ovape_left1, Sprite.ovape_left2, Sprite.ovape_left3, _animate, 60);
                 else
                     _sprite = Sprite.ovape_left1;
                 break;

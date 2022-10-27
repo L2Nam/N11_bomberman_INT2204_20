@@ -1,19 +1,13 @@
 package uet.oop.bomberman.gui;
 
-import uet.oop.bomberman.Game;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static uet.oop.bomberman.Map.levels;
+import javax.swing.*;
+import uet.oop.bomberman.Game;
 
 /**
  * Swing Panel hiển thị thông tin thời gian, điểm mà người chơi đạt được
  */
 public class InfoPanel extends JPanel {
-
 	private JLabel pointsLabel;
 	private JLabel livesLabel;
 	private JLabel emptyLabel_1;
@@ -21,10 +15,18 @@ public class InfoPanel extends JPanel {
 	private JLabel emptyLabel_4;
 	private JLabel levelsLabel;
 
-
-	private ImageIcon left_bar = new ImageIcon((new ImageIcon("res/textures/left-bar.png")).getImage().getScaledInstance(300, 30, Image.SCALE_DEFAULT));
-	private ImageIcon center_bar = new ImageIcon((new ImageIcon("res/textures/center-bar.png")).getImage().getScaledInstance(300, 30, Image.SCALE_DEFAULT));
-	private ImageIcon right_bar = new ImageIcon((new ImageIcon("res/textures/right-bar.png")).getImage().getScaledInstance(300, 30, Image.SCALE_DEFAULT));
+	private ImageIcon left_bar =
+			new ImageIcon((new ImageIcon("res/textures/left-bar.png"))
+					.getImage()
+					.getScaledInstance(300, 30, Image.SCALE_DEFAULT));
+	private ImageIcon center_bar =
+			new ImageIcon((new ImageIcon("res/textures/center-bar.png"))
+					.getImage()
+					.getScaledInstance(300, 30, Image.SCALE_DEFAULT));
+	private ImageIcon right_bar =
+			new ImageIcon((new ImageIcon("res/textures/right-bar.png"))
+					.getImage()
+					.getScaledInstance(300, 30, Image.SCALE_DEFAULT));
 
 	public InfoPanel(Game game) {
 		setLayout(new GridLayout(1, 3));
@@ -59,16 +61,12 @@ public class InfoPanel extends JPanel {
 		add(levelsLabel);
 		add(livesLabel);
 
-
-
 		setBackground(color);
 		setPreferredSize(new Dimension(0, 40));
 	}
 
-
 	public void setLives(int t) {
 		livesLabel.setText("Lives: " + t);
-
 	}
 
 	public void setLevels(int t) {
@@ -79,8 +77,7 @@ public class InfoPanel extends JPanel {
 	}
 
 	class FixedStateButtonModel extends DefaultButtonModel {
-		FixedStateButtonModel() {
-		}
+		FixedStateButtonModel() {}
 
 		public boolean isPressed() {
 			return false;
@@ -90,7 +87,6 @@ public class InfoPanel extends JPanel {
 			return false;
 		}
 
-		public void setRollover(boolean b) {
-		}
+		public void setRollover(boolean b) {}
 	}
 }
