@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static uet.oop.bomberman.Map.levels;
+
 /**
  * Swing Panel hiển thị thông tin thời gian, điểm mà người chơi đạt được
  */
@@ -17,10 +19,10 @@ public class InfoPanel extends JPanel {
 	private JLabel emptyLabel_1;
 	private JLabel emptyLabel_2;
 	private JLabel emptyLabel_4;
+	private JLabel levelsLabel;
 
 
-
-
+	private ImageIcon left_bar = new ImageIcon((new ImageIcon("res/textures/left-bar.png")).getImage().getScaledInstance(80, 30, Image.SCALE_DEFAULT));
 	private ImageIcon center_bar = new ImageIcon((new ImageIcon("res/textures/center-bar.png")).getImage().getScaledInstance(80, 30, Image.SCALE_DEFAULT));
 	private ImageIcon right_bar = new ImageIcon((new ImageIcon("res/textures/right-bar.png")).getImage().getScaledInstance(80, 30, Image.SCALE_DEFAULT));
 
@@ -33,11 +35,18 @@ public class InfoPanel extends JPanel {
 		emptyLabel_4 = new JLabel();
 
 		pointsLabel = new JLabel();
-		pointsLabel.setIcon(center_bar);
+		pointsLabel.setIcon(left_bar);
 		pointsLabel.setText("Points: " + game.getBoard().getPoints());
 		pointsLabel.setForeground(Color.white);
 		pointsLabel.setHorizontalAlignment(JLabel.CENTER);
 		pointsLabel.setHorizontalTextPosition(JLabel.CENTER);
+
+		levelsLabel = new JLabel();
+		levelsLabel.setIcon(center_bar);
+		levelsLabel.setText("Level: " + game.getBoard().getLevels());
+		levelsLabel.setForeground(Color.white);
+		levelsLabel.setHorizontalAlignment(JLabel.CENTER);
+		levelsLabel.setHorizontalTextPosition(JLabel.CENTER);
 
 		livesLabel = new JLabel();
 		livesLabel.setIcon(right_bar);
@@ -49,8 +58,8 @@ public class InfoPanel extends JPanel {
 		add(emptyLabel_1);
 		add(emptyLabel_2);
 		add(pointsLabel);
+		add(levelsLabel);
 		add(livesLabel);
-		add(emptyLabel_4);
 
 
 		setBackground(color);

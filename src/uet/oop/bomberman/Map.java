@@ -34,6 +34,7 @@ import static uet.oop.bomberman.level.FileLevelLoader.level_load;
  */
 public class Map implements IRender {
 	protected LevelLoader levelLoader;
+	public static int levels = 0;
 	protected Game _game;
 	protected Keyboard _input;
 	protected Keyboard _input1;
@@ -109,6 +110,9 @@ public class Map implements IRender {
 
 	public void nextLevel() {
 		loadLevel(levelLoader.getLevel() + 1);
+		levels += 1;
+		System.out.println(levelLoader.getLevel());
+		System.out.println(levels);
 	}
 	
 	public void loadLevel(int level) {
@@ -431,6 +435,8 @@ public class Map implements IRender {
 	public int getLives() {
 		return _lives;
 	}
+
+	public int getLevels() { return levels; }
 
 	public void addPoints(int points) {
 		this._points += points;
